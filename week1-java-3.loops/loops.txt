@@ -1,0 +1,80 @@
+1. what is loop?
+
+A loop in Java is a control flow structure that allows you to execute a block of code repeatedly, as long as a specific condition is true.
+
+Think of it like this:
+
+“Keep doing this task again and again — until I say stop.”
+
+In programming, repeating tasks is extremely common.
+For example:
+
+Displaying a list of customers.
+Processing records in a file.
+Continuously checking a user’s input.
+Counting values or calculating sums.
+
+Without loops, you would have to copy-paste the same lines of code over and over — inefficient, error-prone, and not scalable.
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+2. How Loops Work
+
+
+When a loop runs, the following process happens in the program’s control flow:
+
+Initialization – Set a starting point (e.g., int i = 0).
+
+Condition check – Before every repetition, check if a certain condition is true (e.g., i < 5).
+
+Body execution – If condition is true → run the loop body.
+
+Update / Increment – Adjust variables (e.g., i++).
+
+Repeat – Go back to condition step.
+
+Stop – When condition becomes false → exit the loop.
+
+This process happens in stack memory, because:
+
+Each loop iteration runs inside the same method’s stack frame.
+
+The variables created inside the loop (like i) are stored in the stack, not heap.
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+
+3. Types of Loops in Java
+
+
+| Loop Type       | When to Use                                            | Condition Checked     |
+| --------------- | ------------------------------------------------------ | --------------------- |
+| `for` loop      | When you know exactly how many times to repeat         | Before each iteration |
+| `while` loop    | When you don’t know the number of repetitions          | Before each iteration |
+| `do-while` loop | When you want to run the block *at least once*         | After each iteration  |
+| `for-each` loop | When you want to iterate through a collection or array | Implicitly handled    |
+
+
+------------------------------------------------------------------------------------------------------------------------------------------
+
+
+4.Conceptual Flow (Visual)
+
+
+Initialization → Condition check → Execute body → Update → Repeat → Exit
+
+
+✅ Stored and executed in stack
+✅ Objects inside loops → heap
+✅ After method ends → garbage collector frees memory
+
+
+------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+

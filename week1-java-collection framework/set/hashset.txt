@@ -1,0 +1,123 @@
+1. What is HashSet?
+
+HashSet is a Set implementation that stores elements uniquely.
+No duplicates allowed.
+No guaranteed order of elements.
+Backed by HashMap internally.
+
+✅ Key idea: HashSet uses a hash table internally to achieve fast add, remove, and contains operations.
+
+----------------------------------------------------------------------------------------------------------------------
+ 2. HashSet Internal Structure
+
+Internally:
+
+transient HashMap<E,Object> map;
+
+
+Each element of HashSet is stored as a key in a HashMap.
+Value is always a constant dummy object (like PRESENT = new Object()).
+
+
+HashSet = { "A", "B", "C" }
+Internal:
+map = {
+  "A" : PRESENT,
+  "B" : PRESENT,
+  "C" : PRESENT
+}
+----------------------------------------------------------------------------------------------------------------------
+ 3. How HashSet Stores Data (Step by Step)
+
+When you do:
+
+hashSet.add("Apple");
+
+
+Internally:
+
+1.Compute hashCode() of "Apple"
+
+	int hash = "Apple".hashCode();
+
+
+2.Find bucket index using hash
+
+	bucketIndex = hash % capacity
+
+
+3.Check if element already exists in that bucket (using equals())
+4.If not exists → insert element (as key in map)
+
+
+----------------------------------------------------------------------------------------------------------------------
+ 4. Buckets & Collisions
+
+HashSet divides storage into buckets (like compartments).
+Multiple elements can have same bucket → collision.
+
+Collision Handling:
+
+    Uses LinkedList or balanced tree in Java 8+
+    If multiple elements hash to same bucket, HashSet chains them
+    Insert new element → check chain using equals() → avoid duplicates
+----------------------------------------------------------------------------------------------------------------------
+ 5. Default Capacity and Load Factor
+
+Default values:
+
+      Capacity = 16 → initial number of buckets
+      Load factor = 0.75 → threshold to resize
+
+💡 Meaning:
+
+      When 75% of buckets are full → HashSet doubles capacity (resizes)
+      Resizing is expensive → copies all elements to new buckets
+
+----------------------------------------------------------------------------------------------------------------------
+ 6. Time Complexity of Operations
+
+| Operation     | Time Complexity                                       |
+| ------------- | ----------------------------------------------------- |
+| add(E e)      | O(1) average, O(n) worst-case (resizing or collision) |
+| remove(E e)   | O(1) average                                          |
+| contains(E e) | O(1) average                                          |
+| iteration     | O(n)                                                  |
+
+
+----------------------------------------------------------------------------------------------------------------------
+ 7. HashSet vs HashMap
+
+       HashSet uses HashMap internally
+       Keys in HashMap → elements of HashSet
+       Values in HashMap → dummy object (PRESENT)
+       Therefore all HashSet operations are actually HashMap operations internally
+
+----------------------------------------------------------------------------------------------------------------------
+ 8. Why HashSet is Fast
+
+       Direct bucket computation via hashCode() → no need to traverse all elements
+       Avoids duplicates using equals() check only in bucket → fast
+       Resizing happens rarely → amortized O(1)
+----------------------------------------------------------------------------------------------------------------------
+10. Advantages of HashSet
+
+       Fast insert, remove, contains → O(1) average
+       Prevents duplicate elements automatically
+       Suitable for membership checks
+
+----------------------------------------------------------------------------------------------------------------------
+ 11. Disadvantages of HashSet
+
+       No order guarantee → cannot maintain insertion or sorted order
+       Memory overhead → buckets + nodes
+       Hash collisions → if many collisions → performance degrades
+
+----------------------------------------------------------------------------------------------------------------------
+ 12. Key Points to Remember
+
+       HashSet = Set + Hashing + HashMap internally
+       Duplicates are prevented using hashCode + equals
+       Unordered collection
+       Fast operations, but resizing or collisions can make operations slow
+       Use inkedHashSet or TreeSet if order or sorted elements needed

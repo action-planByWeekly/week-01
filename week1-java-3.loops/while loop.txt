@@ -1,0 +1,62 @@
+1. What is a while loop?
+
+A while loop is a control statement that allows you to repeat a block of code as long as a given condition is true.
+
+It is mainly used when you don’t know in advance how many times you need to execute that code.
+Instead, the loop keeps running until the condition becomes false.
+
+For example:
+
+“Keep asking the user for a password until they enter the correct one.”
+Here, you don’t know how many times the user will try — so you use a while loop.
+
+------------------------------------------------------------------------------------------------------------------------------------------
+2. Syntax of while Loop
+
+while (condition) {
+    // code to execute repeatedly
+}
+
+Explanation:
+
+1.Condition:
+
+Evaluated before each iteration.
+
+If true → the loop body executes.
+If false → the loop stops immediately.
+
+
+2.Code Block:
+
+Executes only if the condition is true.
+
+
+
+| Feature                     | Description                                   |
+| --------------------------- | --------------------------------------------- |
+| **Purpose**                 | Repeat code while a condition is true         |
+| **When to Use**             | When number of iterations is unknown          |
+| **Condition**               | Checked before each execution                 |
+| **May Execute Zero Times?** | ✅ Yes (if condition false initially)         |
+| **Common Error**            | Infinite loop (condition never becomes false) |
+| **Loop Control**            | Use `break` or `continue` for control flow    |
+
+---------------------------------------------------------------------------------------------------------------------------------------
+
+3.Nested while Loops
+
+You can place one while loop inside another — for example, when printing tables or patterns.
+
+int i = 1;
+while (i <= 3) {
+    int j = 1;
+    while (j <= 3) {
+        System.out.println("i = " + i + ", j = " + j);
+        j++;
+    }
+    i++;
+}
+
+----------------------------------------------------------------------------------------------------------------------------------------
+

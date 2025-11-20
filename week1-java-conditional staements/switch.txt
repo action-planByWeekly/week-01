@@ -1,0 +1,138 @@
+1.What Is switch ?
+
+A switch statement is a special decision-making structure that replaces multiple if-else-if conditions that check the same variable.
+
+In simple words:
+
+switch checks one variable, and depending on its value, it chooses a matching case and runs that block of code.
+
+Common use-cases:
+
+Checking menu selections
+
+Checking days of the week
+Checking user roles
+Checking grades
+Checking commands
+Reading single-character inputs
+
+--------------------------------------------------------------------------------------------------------------------------------------
+2. Why does switch exist when we have if?
+
+Because sometimes you need to check one variable against many possible fixed values.
+
+Example:
+
+if(day == 1) { ... }
+else if(day == 2) { ... }
+else if(day == 3) { ... }
+else if(day == 4) { ... }
+
+
+This becomes messy, long, and hard to read.
+
+switch solves this nicely:
+
+switch(day) {
+    case 1: ...
+    case 2: ...
+    case 3: ...
+}
+
+Much cleaner, easier to understand, and less error-prone.
+
+--------------------------------------------------------------------------------------------------------------------------------------
+
+3. How switch Works 
+
+Switch has four components you MUST understand:
+
+1️⃣ The switch expression
+
+This is the value you want to check.
+
+Example:
+
+switch(day)
+
+
+Here day must match one of the cases.
+
+2️⃣ Cases
+
+Each case is a possible value.
+
+case 1:
+case 2:
+case 3:
+
+
+Each case says:
+
+“If the switch value equals this case value, run this block.”
+
+3️⃣ break (VERY important)
+
+Break means:
+
+“STOP the switch. Don’t continue to the next cases.”
+
+Because without break, Java falls through — meaning it continues running the next cases too.
+This is the most confusing part for beginners — I will explain it later in detail.
+
+4️⃣ default
+
+This is like else in if-else.
+
+It runs when NO case matches.
+-------------------------------------------------------------------------------------------------------------------------------------- 
+
+5.  Syntax
+
+switch(expression) {
+    case value1:
+        // code
+        break;
+
+    case value2:
+        // code
+        break;
+
+    default:
+        // code
+}
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------
+
+Data Types Allowed in switch
+
+You can use:
+
+✔ int
+✔ byte
+✔ short
+✔ char
+✔ String
+✔ enum
+✔ Integer, Character, etc. (their wrapper classes)
+
+You cannot use:
+❌ float
+❌ double
+❌ boolean
+Because they are imprecise or not suitable for clear case matching.
+
+
+---------------------------------------------------------------------------------------------------------------------------------------
+
+🧠 Why Use switch Instead of if?
+
+Use switch when:
+
+You are checking one variable
+
+That variable has several fixed possible values
+
+Each value maps to a separate action

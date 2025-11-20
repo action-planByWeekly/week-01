@@ -1,0 +1,154 @@
+1. what is a variable?
+
+A variable is a named memory location used to store data that can change during program execution
+
+-----------------------------------------------------------------------------------------------------------------------
+
+
+2. why need variables?
+
+Because when a program runs, it needs to temporarily store data.
+If you had no variables, you would have no way to remember or reuse any value your program uses.
+
+
+-----------------------------------------------------------------------------------------------------------------------
+
+3. Variable Declaration and Initialization
+
+ lets define this using an example
+
+ex.
+	int age;
+	age = 25;
+
+this line actually does three things in memory:
+
+Creates space in RAM for one integer (4 bytes)
+
+Labels that space with the name age
+
+Stores the value 25 inside that space
+
+so the declaration → telling Java “reserve a box for an integer”
+and Initialization → now store 25 in that box
+
+-----------------------------------------------------------------------------------------------------------------------
+
+4.Why does Java need “Data Types”?
+
+Java is a strongly typed language.
+That means every variable must have a data type known before the program runs.
+
+Why? Because:
+
+It tells Java how much memory to reserve.
+
+It tells Java what kind of operations are allowed.
+
+Example:
+You can add two numbers: 10 + 5
+But you can’t add a name and a number: "Miyuru" + 5 (without converting types)
+
+That’s why when you write int x = 5;, Java knows to:
+
+Allocate 4 bytes of memory
+
+Expect only integer values
+
+Disallow invalid operations like x = "hello"
+
+
+-----------------------------------------------------------------------------------------------------------------------
+
+there are 2 main data  type. they are
+1.primitive data types
+2.non-primitive data types
+
+-----------------------------------------------------------------------------------------------------------------------
+
+primitive data types -Primitive means “basic” — they are not built from anything else.
+
+
+| Type        | Size    | What it stores                    | Example                       | Real-life use                |
+| ----------- | ------- | --------------------------------- | ----------------------------- | ---------------------------- |
+| **byte**    | 1 byte  | Small whole numbers (-128 to 127) | `byte age = 25;`              | Small data like age, codes   |
+| **short**   | 2 bytes | Medium integers                   | `short year = 2025;`          | Storing years, IDs           |
+| **int**     | 4 bytes | Regular integers                  | `int salary = 50000;`         | Counters, salary, marks      |
+| **long**    | 8 bytes | Big integers                      | `long distance = 123456789L;` | Bank balances, distances     |
+| **float**   | 4 bytes | Decimal (less precision)          | `float price = 12.99f;`       | Prices, averages             |
+| **double**  | 8 bytes | Decimal (high precision)          | `double pi = 3.14159265;`     | Scientific or financial data |
+| **char**    | 2 bytes | Single character                  | `char grade = 'A';`           | Grades, letters              |
+| **boolean** | 1 bit   | true/false                        | `boolean isPassed = true;`    | Logic, conditions            |
+
+
+
+-----------------------------------------------------------------------------------------------------------------------
+
+non-primitive data types - These are complex data types created using classes or structures.
+
+
+String → A sequence of characters ("Hello")
+
+Array → A collection of values ({1, 2, 3})
+
+Class → Blueprint for objects (Student, Car)
+
+Interface → Contract between classes
+
+Enum → Set of constants ({LOW, MEDIUM, HIGH})
+
+When you create a variable with one of these, it doesn’t store the actual data,
+it stores a reference (memory address) of where the data exists.
+
+
+-----------------------------------------------------------------------------------------------------------------------
+
+
+Types of Variables
+
+
+| Type         | Where declared                  | Who can access               | Lives until      |
+| ------------ | ------------------------------- | ---------------------------- | ---------------- |
+| **Local**    | Inside a method                 | Only inside that method      | Method ends      |
+| **Instance** | Inside a class, outside methods | Each object has its own copy | Object destroyed |
+| **Static**   | Inside a class, with `static`   | Shared among all objects     | Program ends     |
+
+we cant take this example to get an idea
+
+Local → note you write and throw away
+Instance → personal notebook each student owns
+Static → whiteboard shared by all students
+
+-----------------------------------------------------------------------------------------------------------------------------
+ex.
+public class Student {
+    static int totalStudents = 0; // Shared by everyone
+    int age;                      // Each student has their own age
+    
+    void setAge(int a) {
+        int currentYear = 2025;   // Only lives inside this method
+        age = a;
+    }
+}
+
+--------------------------------------------------------------------------------------------------------------------------
+
+How the Compiler Understands Variables
+
+When you write code, Java Compiler:
+
+Checks the type of each variable
+
+Verifies all operations are valid for that type
+
+Converts variable names into memory addresses in bytecode
+
+
+
+
+-------------------------------------------------------------------------------------------------------------------------
+
+Java Operators
+
+
+

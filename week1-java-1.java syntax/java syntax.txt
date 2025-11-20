@@ -1,0 +1,89 @@
+1. what is java syntax?
+
+A collection of rules and structures related to java language. that's how statements,classes,methods and expressions must
+be written so the java complier can understand them.
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+2. Purpose of java syntax
+
+The main purpose of Java syntax is to provide a standard, well-defined way to write programs that the Java compiler can interpret and convert into bytecode.
+If the syntax is incorrect, the compiler cannot understand the code and produces compile-time errors.
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+3. The structure of Java program.(with exanple)
+ 
+
+here is a basic java program
+
+
+	package myfirstprogram;                          // 1.  package declaration
+	import java.util.*;                              // 2.  import statement
+
+		public class HelloWorld {                 // 3. Class definition
+  	   public static void main(String[] args) {       // 4. Main method
+       		 System.out.println("Hello, World!");     // 5. Statement
+   		 }
+	}
+
+
+ 3.1 Package Declaration - A package is a way to group related classes together.
+                           It helps organize code and avoid naming conflicts.
+
+	
+ 3.2 Import Statement - Used to access classes that are part of other packages.
+			and also use a wildcard * to import all classes in a package
+
+
+
+3.3  Class Definition - Every Java application must contain at least one class.
+			The class name must start with a capital letter (by convention).
+
+
+3.4  Comments -  	Comments are non-executable lines used to describe or document code.
+			The compiler ignores comments.
+
+
+3.5  The main() Method -  The main method is the entry point of every Java application.
+			  The Java Virtual Machine (JVM) looks for this method to begin execution.
+			  here are each of keywords.
+
+			  public → Accessible from anywhere.
+
+			  static → Can be executed without creating an object.
+
+			  void → Does not return a value.
+
+			  String[] args → Used to receive command-line arguments.
+ 
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+4. Fundamental Rules of Java Syntax
+
+     Rule	                                        Description
+
+Case-sensitive	                  Java differentiates between uppercase and lowercase letters (Main ≠ main).
+
+File name = Public class name	  If a class is declared public, the file name must match it exactly.
+
+Semicolon (;) required	          Each statement must end with a semicolon.
+
+Braces {}	                  Used to  define blocks of code.
+
+main() method	                  Required as the program’s entry point.
+
+Whitespace	                  Ignored by the compiler but improves readability.
+ 
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+5.Importance of Syntax
+
+Ensures that code is understood by the compiler.
+
+Helps maintain consistency and readability across programs.
+
+Prevents runtime failures caused by invalid structures.
+
+Forms the foundation for learning higher-level concepts such as OOP, loops, exceptions, and APIs.

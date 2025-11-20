@@ -1,0 +1,139 @@
+1. What is LinkedHashMap?
+
+LinkedHashMap = HashMap + Doubly Linked List
+
+Stores key-value pairs
+
+Maintains insertion order (or access order, if configured)
+
+Allows 1 null key, multiple null values
+
+✅ Key idea: Ordered HashMap
+
+-------------------------------------------------------------------------------------------------------
+🔵 2. Why LinkedHashMap Exists
+
+HashMap is fast but unordered
+
+Sometimes, we need predictable iteration order
+
+LinkedHashMap solves this:
+
+Iterates keys/values in order they were inserted
+
+Can also maintain access order → useful for LRU caches
+
+-------------------------------------------------------------------------------------------------------
+🔵 3. Internal Structure
+
+Internally, LinkedHashMap is:
+
+HashMap (array of buckets) + Doubly Linked List (maintains order)
+
+
+Each Node contains:
+
+key
+
+value
+
+hash
+
+next pointer (for bucket collisions)
+
+before and after pointers → doubly linked list
+
+Bucket (array index) → Node → Node → Node
+Doubly Linked List: head ↔ Node ↔ Node ↔ tail
+
+
+Linked list keeps insertion order
+
+Iteration uses linked list, not bucket array
+
+-------------------------------------------------------------------------------------------------------
+🔵 4. How put() Works
+
+Compute hash of key → determine bucket
+
+Check if key exists in bucket (using equals)
+
+If key exists → update value → move node in linked list if access-order enabled
+
+If key does not exist → insert node at end of linked list and insert into bucket
+
+Check load factor → resize if needed
+
+-------------------------------------------------------------------------------------------------------
+🔵 5. Access Order (Optional Feature)
+
+Constructor allows accessOrder = true
+
+Node is moved to tail whenever it is accessed
+
+Useful for LRU Cache (Least Recently Used)
+
+Example:
+
+LinkedHashMap<String, Integer> map = new LinkedHashMap<>(16, 0.75f, true);
+
+
+Accessing a key → moves it to tail → oldest entries remain at head
+
+-------------------------------------------------------------------------------------------------------
+🔵 6. Time Complexity
+Operation	Complexity
+put()	O(1) average
+get()	O(1) average
+remove()	O(1) average
+iteration	O(n)
+
+Slightly slower than HashMap → maintaining linked list pointers
+
+-------------------------------------------------------------------------------------------------------
+
+8. Advantages of LinkedHashMap
+
+Maintains insertion order
+
+Can maintain access order → useful for caches
+
+Fast operations (almost same as HashMap)
+
+Predictable iteration
+-------------------------------------------------------------------------------------------------------
+🔵 9. Disadvantages
+
+Slightly more memory → linked list pointers
+
+Slightly slower than HashMap
+
+Still not sorted → use TreeMap for sorting
+
+
+--------------------------------------------------------------------------------------------------------
+
+Example Code
+
+
+import java.util.LinkedHashMap;
+
+public class LinkedHashMapExample {
+    public static void main(String[] args) {
+        LinkedHashMap<String, Integer> map = new LinkedHashMap<>();
+
+        map.put("Alice", 25);
+        map.put("Bob", 30);
+        map.put("Charlie", 20);
+
+        System.out.println(map); // [Alice=25, Bob=30, Charlie=20] insertion order
+
+        map.get("Alice"); // access
+        for(String key : map.keySet()) {
+            System.out.println(key + " -> " + map.get(key));
+        }
+    }
+}
+
+
+

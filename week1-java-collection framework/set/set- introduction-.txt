@@ -1,0 +1,114 @@
+1. What is a Set?
+
+A Set in Java is a collection of elements that follows these rules:
+
+1.No duplicates — each element must be unique.
+	Example: {1, 2, 3} → cannot add another 2.
+
+2.Unordered — elements are not stored in insertion order (depends on implementation).
+
+3.Allows at most one null element (in most implementations, like HashSet).
+
+✅ Key Idea:
+
+Set = Collection for uniqueness
+If you care about ordering → use special Set (LinkedHashSet, TreeSet)
+
+---------------------------------------------------------------------------------------------------------
+
+ 2. Why Set Exists?
+
+Use cases where Set is better than List:
+
+1.Remove duplicates automatically
+	Example: List of emails → convert to Set → removes duplicates.
+
+2.Membership check is fast
+
+	contains() in HashSet → O(1) average
+	Faster than List → O(n)
+
+3.Mathematical set operations
+
+	Union, Intersection, Difference → easy to implement using Set.
+
+---------------------------------------------------------------------------------------------------------
+ 3. Set Implementations in Java
+
+Java provides 3 main Set implementations:
+
+| Implementation | Order           | Duplicates  | Notes                                             |
+| -------------- | --------------- | ----------- | ------------------------------------------------- |
+| HashSet        | No order        | Not allowed | Fast, backed by hash table                        |
+| LinkedHashSet  | Insertion order | Not allowed | Slower than HashSet, maintains order              |
+| TreeSet        | Sorted order    | Not allowed | Slower, backed by Red-Black tree, elements sorted |
+
+---------------------------------------------------------------------------------------------------------
+ 4. HashSet — Deep Explanation
+
+✔ What it is:
+
+    1.Uses hash table internally
+    2.Stores unique elements
+    3.Does not guarantee order
+
+✔ How it works internally:
+
+    1.Compute hashCode of object
+    2.Determine bucket where object should go
+    3.Check if element already exists in bucket → if yes, reject
+    4.Else, insert
+
+⚡ Fast add() and contains() → O(1) average
+---------------------------------------------------------------------------------------------------------
+
+ 5. LinkedHashSet — Deep Explanation
+
+    1.Maintains insertion order
+    2.Internally: Hash table + linked list of entries
+    3.Slightly slower than HashSet
+    4.Use when order matters, duplicates still not allowed
+---------------------------------------------------------------------------------------------------------
+
+ 6. TreeSet — Deep Explanation
+
+    1.Maintains sorted order (natural or via Comparator)
+    2.Internally: Red-Black tree
+    3.Operations: add, remove, contains → O(log n)
+    4.Use when you need sorted, unique elements
+
+---------------------------------------------------------------------------------------------------------
+
+ 7. Set Methods (Deep Explanation)
+| Method             | What it does        | Notes                       |
+| ------------------ | ------------------- | --------------------------- |
+| add(E e)           | Add element         | If already exists → ignored |
+| remove(Object o)   | Remove element      | Returns true if removed     |
+| contains(Object o) | Check membership    | True if present             |
+| size()             | Number of elements  | Fast, O(1)                  |
+| isEmpty()          | Check if empty      |                             |
+| clear()            | Remove all elements |                             |
+
+---------------------------------------------------------------------------------------------------------
+
+9. Set Advantages
+
+Prevents duplicates automatically
+Fast membership check (especially HashSet)
+Useful for mathematical set operations
+
+---------------------------------------------------------------------------------------------------------
+
+ 10. Set Disadvantages
+
+No index → cannot access by position (get(index) not allowed)
+HashSet unordered → not predictable iteration order
+TreeSet slower → O(log n)
+More memory overhead for TreeSet/LinkedHashSet
+
+---------------------------------------------------------------------------------------------------------
+11. When to use which Set
+
+HashSet → Most common, fast, unordered
+LinkedHashSet → Keep insertion order
+TreeSet → Keep sorted order

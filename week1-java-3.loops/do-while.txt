@@ -1,0 +1,82 @@
+1. What is a do-while loop?
+
+A do-while loop is similar to a while loop,
+but with one key difference:
+
+The do-while loop executes the code block at least once, even if the condition is false at the beginning.
+
+This happens because in a do-while loop,
+the condition is checked after the code executes, not before.
+
+🧩 Example Idea:
+
+Think like this —
+You go to a restaurant, and they say:
+
+“You must order at least once before you can leave.”
+
+That’s a do-while loop!
+You “do” the action (order) first, and then the system checks whether you want to continue.
+
+--------------------------------------------------------------------------------------------------------------------------
+
+2. Syntax of do-while Loop
+do {
+    // code to be executed
+} while (condition);
+
+
+
+-------------------------------------------------------------------------------------------------------------------------
+
+3. Step-by-step Process
+
+The code inside the do { ... } block executes once.
+
+After executing, the condition is checked.
+
+If the condition is true, the loop repeats.
+
+If the condition is false, the loop stops.
+
+This means the minimum number of executions = 1.
+
+-----------------------------------------------------------------------------------------------------------------------
+
+4. Nested do-while Loops
+
+Just like for and while, you can also nest do-while loops inside each other.
+
+Example:
+
+int i = 1;
+do {
+    int j = 1;
+    do {
+        System.out.println("i = " + i + ", j = " + j);
+        j++;
+    } while (j <= 3);
+    i++;
+} while (i <= 2);
+
+
+---------------------------------------------------------------------------------------------------------------------
+
+
+5.When to Use do-while Loop
+
+Use do-while when:
+
+You need to run the loop body at least once before checking the condition.
+
+You are dealing with user input, menu-driven programs, or retry systems.
+
+Example Scenario				Explanation
+
+Asking for user input			You always need to ask once
+Showing a menu				The menu should appear at least once
+Repeated tasks with initial action	You perform an action, then decide whether to continue
+
+--------------------------------------------------------------------------------------------------------------------------
+
+

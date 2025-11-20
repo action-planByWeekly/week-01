@@ -1,0 +1,159 @@
+1. What is TreeSet?
+
+TreeSet is a Set implementation that stores unique elements.
+
+Maintains sorted order of elements.
+
+Backed by a Red-Black Tree (self-balancing binary search tree).
+
+Does not allow duplicates (like other Sets).
+
+✅ Key idea: TreeSet = Set + Sorting + Fast search/insert via tree
+
+-----------------------------------------------------------------------------------------------------------------
+ 2. Why TreeSet Exists
+
+HashSet / LinkedHashSet:
+
+Fast operations
+
+Unordered (HashSet) or insertion order (LinkedHashSet)
+
+TreeSet:
+
+Maintains natural sorted order (or custom via Comparator)
+
+Allows operations like first(), last(), headSet(), tailSet()
+
+Use TreeSet when you need sorted elements automatically.
+
+-----------------------------------------------------------------------------------------------------------------
+ 3. Internal Structure: Red-Black Tree
+
+TreeSet internally uses TreeMap, which is implemented with Red-Black Tree:
+
+Red-Black Tree is a type of self-balancing binary search tree
+Ensures O(log n) operations
+
+Each node has:
+
+ Key (the element)
+ Color (RED / BLACK)
+ Left and Right children
+ Parent pointer
+
+Properties of Red-Black Tree:
+
+ Every node is RED or BLACK
+ Root is BLACK
+ Every leaf (null) is BLACK
+ RED node cannot have RED child (no consecutive RED)
+ Every path from node to leaves has same number of BLACK nodes
+
+These rules guarantee tree is balanced → keeps operations fast.
+-----------------------------------------------------------------------------------------------------------------
+ 4. How TreeSet Works Internally
+
+Example:
+
+TreeSet<Integer> set = new TreeSet<>();
+set.add(30);
+set.add(10);
+set.add(20);
+
+
+Step by step:
+
+Add 30 → becomes root (BLACK)
+
+Add 10 → goes left of 30
+
+Add 20 → goes right of 10
+
+Tree may rebalance → maintains Red-Black properties
+
+After balancing, elements are stored in sorted order:
+
+10, 20, 30
+
+
+Even if inserted randomly, TreeSet always sorts automatically.
+
+-----------------------------------------------------------------------------------------------------------------
+ 5. Duplicate Handling
+
+TreeSet checks compareTo() (for Comparable) or compare() (for Comparator)
+If compareTo() = 0 → element considered duplicate → ignored
+
+-----------------------------------------------------------------------------------------------------------------
+ 6. Iteration
+
+Iterates in sorted order automatically
+Uses tree traversal (in-order traversal)
+
+Example:
+
+for (Integer i : set) {
+    System.out.println(i); // Outputs 10, 20, 30
+}
+
+
+-----------------------------------------------------------------------------------------------------------------
+7. Time Complexity
+
+| Operation       | Complexity | Notes                      |
+| --------------- | ---------- | -------------------------- |
+| add(E e)        | O(log n)   | Tree insertion + balancing |
+| remove(E e)     | O(log n)   | Node removal + balancing   |
+| contains(E e)   | O(log n)   | Search in tree             |
+| first(), last() | O(log n)   | Root or extreme node       |
+| iteration       | O(n)       | Sorted order               |
+
+-----------------------------------------------------------------------------------------------------------------
+8. TreeSet vs HashSet / LinkedHashSet
+
+
+| Feature                  | HashSet     | LinkedHashSet   | TreeSet             |
+| ------------------------ | ----------- | --------------- | ------------------- |
+| Order                    | Unordered   | Insertion order | Sorted              |
+| Performance add/contains | O(1) avg    | O(1) avg        | O(log n)            |
+| Duplicate                | Not allowed | Not allowed     | Not allowed         |
+| Memory                   | Low         | Slightly more   | More (tree nodes)   |
+| Iteration                | Fast        | Fast            | Slower than HashSet |
+
+
+-----------------------------------------------------------------------------------------------------------------
+9. TreeSet Methods
+
+first() → returns smallest element
+last() → returns largest element
+headSet(E e) → all elements < e
+tailSet(E e) → all elements ≥ e
+subSet(E from, E to) → elements in range [from, to)
+
+
+-----------------------------------------------------------------------------------------------------------------
+11. Advantages of TreeSet
+
+Maintains sorted order automatically
+Unique elements guaranteed
+Useful for range queries (headSet, tailSet, subSet)
+-----------------------------------------------------------------------------------------------------------------
+12. Disadvantages of TreeSet
+
+Slower than HashSet → O(log n) vs O(1) average
+More memory → tree nodes + pointers
+Cannot store null (throws NullPointerException)
+-----------------------------------------------------------------------------------------------------------------
+
+ 13. When to Use TreeSet
+
+Need sorted, unique elements
+Frequently perform range queries
+Insertion order doesn’t matter
+Small to medium size data (very large → memory heavy)
+
+
+-----------------------------------------------------------------------------------------------------------------
+
+

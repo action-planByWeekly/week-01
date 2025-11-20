@@ -1,0 +1,60 @@
+1. What is the For-Each Loop?
+
+The for-each loop (or enhanced for loop) is a simplified version of the for loop.
+
+It is mainly used to iterate over arrays or collections like ArrayList, HashSet, etc.
+
+You don’t need an index counter — Java automatically goes through each element.
+
+It is read-only by default (you can’t change the array’s structure inside the loop).
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+2. Syntax
+
+
+for (datatype element : collection) {
+    // code to process each element
+}
+
+
+Components:
+
+datatype → Element type (e.g., int, String, Student)
+
+element → Temporary variable that holds each element in the iteration
+
+collection → Array or Collection object you want to loop over
+
+
+here is a real life example for understanding
+
+Imagine you have a basket of fruits: 🍎🍌🥭
+
+You pick each fruit one by one and check it.
+You don’t care about the position of each fruit.
+That’s exactly what for-each loop does — automatic iteration without index management.
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+3.summery
+
+| Feature      | Description                                              |
+| ------------ | -------------------------------------------------------- |
+| Purpose      | Iterate through arrays or collections without index      |
+| Minimum code | Cleaner and simpler than normal for loop                 |
+| Read/Modify  | Can read/modify elements, but cannot add/remove          |
+| Index access | Not available                                            |
+| When to use  | When you just need to access every element in collection |
+
+
+------------------------------------------------------------------------------------------------------------------------------------------
+
+. Limitations
+
+Cannot modify array elements’ size
+
+You can read or update element values but cannot add/remove elements in collections inside this loop.
+
+No index access
+
+If you need the index of each element, you cannot use for-each (use normal for instead).

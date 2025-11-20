@@ -1,0 +1,168 @@
+1. What is TreeMap?
+
+TreeMap is a Map implementation that stores key-value pairs.
+
+Keys are always sorted — natural order (Comparable) or custom Comparator.
+
+No null keys allowed (throws NullPointerException)
+
+Values can be null
+
+✅ Key idea: Map + Sorted Keys
+
+🔵 2. Why TreeMap Exists
+
+HashMap: fast, unordered
+
+LinkedHashMap: preserves insertion order
+
+TreeMap: automatically keeps keys sorted
+
+Use case: when you need sorted access to keys or want range queries like subMap(), headMap(), tailMap().
+
+🔵 3. Internal Structure
+
+TreeMap is backed by a Red-Black Tree (self-balancing binary search tree).
+
+Each node in the tree stores:
+
+key
+
+value
+
+left child
+
+right child
+
+parent
+
+color (RED or BLACK)
+
+Red-Black Tree properties:
+
+Every node is RED or BLACK
+
+Root is BLACK
+
+Null leaves are BLACK
+
+RED node cannot have RED child
+
+Every path from a node to leaves has the same number of BLACK nodes
+
+These rules ensure the tree remains balanced, so operations are always O(log n).
+
+🔵 4. How put() Works
+
+Start at root
+
+Compare new key with current node’s key:
+
+if key < node.key → go left
+
+if key > node.key → go right
+
+if key == node.key → update value
+
+Insert node at correct position
+
+Rebalance tree if Red-Black properties are violated
+
+✅ Result: Tree remains balanced → sorted order guaranteed
+
+🔵 5. How get() Works
+
+Start at root
+
+Compare key with node’s key
+
+Go left or right depending on comparison
+
+Stop when key found → return value
+
+If key not found → return null
+
+Time complexity: O(log n) → guaranteed because tree is balanced
+
+🔵 6. Iteration
+
+Iteration is in-order traversal → keys in sorted order
+
+keySet(), values(), entrySet() → all return elements sorted by keys
+
+
+---------------------------------------------------------------------------------------------------------------
+
+7. TreeMap vs HashMap / LinkedHashMap
+
+| Feature             | HashMap     | LinkedHashMap   | TreeMap      |
+| ------------------- | ----------- | --------------- | ------------ |
+| Order               | Unordered   | Insertion       | Sorted       |
+| Performance put/get | O(1) avg    | O(1) avg        | O(log n)     |
+| Null key            | 1 allowed   | 1 allowed       | Not allowed  |
+| Duplicate key       | Not allowed | Not allowed     | Not allowed  |
+| Iteration           | Unordered   | Insertion order | Sorted order |
+
+
+---------------------------------------------------------------------------------------------------------------
+
+8. TreeMap Methods
+
+firstKey() → smallest key
+
+lastKey() → largest key
+
+headMap(K toKey) → keys < toKey
+
+tailMap(K fromKey) → keys ≥ fromKey
+
+subMap(K fromKey, K toKey) → keys in range [fromKey, toKey)
+
+
+
+---------------------------------------------------------------------------------------------------------------
+
+10. Advantages of TreeMap
+
+Keys always sorted automatically
+
+Supports range queries (subMap, headMap, tailMap)
+
+Guaranteed O(log n) for get, put, remove
+
+
+---------------------------------------------------------------------------------------------------------------
+
+
+🔵 11. Disadvantages
+
+Slower than HashMap → O(log n) vs O(1) average
+
+More memory → tree nodes + pointers
+
+No null key allowed
+
+--------------------------------------------------------------------------------------------------------------
+
+example code
+
+
+import java.util.TreeMap;
+
+public class TreeMapExample {
+    public static void main(String[] args) {
+        TreeMap<Integer, String> map = new TreeMap<>();
+
+        map.put(30, "Alice");
+        map.put(10, "Bob");
+        map.put(20, "Charlie");
+
+        System.out.println(map); // {10=Bob, 20=Charlie, 30=Alice}
+
+        System.out.println(map.firstKey()); // 10
+        System.out.println(map.lastKey());  // 30
+
+        System.out.println(map.subMap(15, 31)); // {20=Charlie, 30=Alice}
+    }
+}
+

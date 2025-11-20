@@ -1,0 +1,58 @@
+1. What is a for loop?
+
+A for loop is a control flow statement that allows you to repeat a block of code a specific number of times.
+It’s mainly used when you know in advance how many times you want to execute that block
+
+ex.
+print numbers from 1 to 10, in here we already know there are 10 steps — so the for loop is ideal.
+
+----------------------------------------------------------------------------------------------------------------------
+
+2. Syntax of for Loop
+
+for (initialization; condition; update) {
+    // code to execute repeatedly
+}
+
+Let’s break this into three important parts:
+
+1.Initialization:
+This part runs only once, at the beginning of the loop.
+Usually, this is where you declare and assign a loop counter variable, like int i = 0;
+
+2.Condition (or Test Expression):
+This expression is checked before every iteration.
+
+If it evaluates to true, the loop executes.
+If it’s false, the loop stops immediately.
+
+3.Update (or Increment/Decrement Expression):
+This runs after each loop iteration.
+It updates the counter variable, usually increasing or decreasing its value (i++ or i--).
+----------------------------------------------------------------------------------------------------------------------
+
+3.When to Use for Loop
+
+| Situation                                 | Use `for` Loop? | Example                     |
+| ----------------------------------------- | --------------- | --------------------------- |
+| You know exactly how many times to repeat | ✅ Yes           | Print numbers 1 to 100      |
+| You want to iterate an array by index     | ✅ Yes           | Access elements by position |
+| You don’t know repetition count           | ❌ No            | Use `while` instead         |
+| You must execute at least once            | ❌ No            | Use `do-while` instead      |
+
+
+---------------------------------------------------------------------------------------------------------------------
+
+4. Nested for Loops
+
+You can also place one loop inside another loop.
+These are called nested loops — useful for working with tables, matrices, or patterns.
+
+Example:
+
+for (int i = 1; i <= 3; i++) {
+    for (int j = 1; j <= 3; j++) {
+        System.out.println("i = " + i + ", j = " + j);
+    }
+}
+

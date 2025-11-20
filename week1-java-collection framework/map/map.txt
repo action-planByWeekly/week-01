@@ -1,0 +1,92 @@
+1. What is a Map?
+
+A Map is a collection of key-value pairs.
+
+Each key is unique.
+
+Each key maps to exactly one value.
+
+Keys are used to retrieve values efficiently.
+
+Key points:
+
+Keys must be unique → duplicate keys overwrite previous value
+
+Values can be duplicated → multiple keys can have same value
+
+Not a subtype of Collection → Map is a separate interface
+-------------------------------------------------------------------------------------------------------------------------------------
+
+2. Why Map Exists
+
+Use Map when you need fast lookup of a value based on a key:
+
+Example: Phone book → key = name, value = phone number
+
+Example: Student ID → key = ID, value = Student object
+
+Without Map, you would have to search linearly in a list → O(n)
+With Map → access by key → O(1) average for HashMap
+-------------------------------------------------------------------------------------------------------------------------------------
+
+3. Map Implementations
+
+| Implementation | Order           | Notes                                      | Nulls Allowed                     |
+| -------------- | --------------- | ------------------------------------------ | --------------------------------- |
+| HashMap        | Unordered       | Fast, backed by hash table                 | 1 null key, multiple null values  |
+| LinkedHashMap  | Insertion order | Maintains order                            | 1 null key, multiple null values  |
+| TreeMap        | Sorted order    | Keys sorted by natural order or Comparator | No null keys (value null allowed) |
+| Hashtable      | Unordered       | Legacy, synchronized                       | No null key/value                 |
+
+
+-------------------------------------------------------------------------------------------------------------------------------------
+3. Map Methods
+
+| Method                      | Description                   |
+| --------------------------- | ----------------------------- |
+| put(K key, V value)         | Add or update key-value       |
+| get(Object key)             | Retrieve value by key         |
+| remove(Object key)          | Remove key-value pair         |
+| containsKey(Object key)     | Check if key exists           |
+| containsValue(Object value) | Check if value exists         |
+| keySet()                    | Return set of keys            |
+| values()                    | Return collection of values   |
+| entrySet()                  | Return set of key-value pairs |
+
+
+-----------------------------------------------------------------------------------------------------------------------------------
+9. Advantages of Map
+
+Fast lookup by key → O(1) average for HashMap
+
+Unique keys → prevents duplicate mapping
+
+Supports flexible implementations → HashMap, LinkedHashMap, TreeMap
+
+Iteration methods → keySet(), values(), entrySet()
+
+-----------------------------------------------------------------------------------------------------------------------------------
+10. Disadvantages of Map
+
+No direct index access → unlike List, cannot access by position
+
+Memory overhead → buckets + nodes
+
+TreeMap slower → O(log n) vs O(1) HashMap
+
+-----------------------------------------------------------------------------------------------------------------------------------
+
+11. When to Use Which Map
+
+
+| Map           | Use Case                                |
+| ------------- | --------------------------------------- |
+| HashMap       | Fast, unordered storage                 |
+| LinkedHashMap | Maintain insertion order (e.g., caches) |
+| TreeMap       | Maintain sorted keys, range queries     |
+| Hashtable     | Legacy, synchronized map                |
+
+
+-----------------------------------------------------------------------------------------------------------------------------------
+
+
