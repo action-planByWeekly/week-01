@@ -1,0 +1,99 @@
+1. What Is an if Statement?
+
+
+The if statement is the most basic decision-making structure in Java.
+It lets your program check a condition, and only if the condition is true, a specific block of code will run.
+
+So the if statement gives your program the ability to think and react.
+
+Without if, a program runs straight from top to bottom with zero intelligence.
+
+
+
+---
+
+
+2. Syntax (Structure)
+if (condition) {
+    // code to run if condition is true
+}
+
+
+condition must produce true or false
+
+The {} is called a block — only runs if condition is true
+
+If condition is false → the block is skipped completely
+---
+
+
+
+3. What is a Condition?
+
+A condition is an expression that results in boolean output:
+
+✔️ true
+❌ false
+
+Examples:
+
+age > 18
+marks >= 50
+salary < 30000
+isLoggedIn == true
+name.equals("John")
+
+---
+Summary of the if Statement
+
+
+It checks one condition
+
+Runs code only when condition is true
+
+Nothing runs if condition is false
+
+It’s the foundation for all decision-making in programming
+
+
+
+---
+
+else Statement
+
+
+
+1. What Is else?
+
+The else statement is the second half of an if decision.
+
+It tells Java:
+
+“If the if condition is false, then run this block instead.”
+
+Meaning:
+
+if handles the true path
+
+else handles the false path
+
+Together they form a two-way decision structure
+
+
+
+---
+3. Why Do We Need else?
+
+Without else, the program only knows what to do if a condition is true.
+But most real situations have two possible outcomes:
+
+---
+
+
+4. Important Rules of else
+
+1️⃣ else can NEVER exist without an if
+
+2️⃣ else runs only when the if condition is false
+
+3️⃣ else is unconditional — it always runs when if is false.

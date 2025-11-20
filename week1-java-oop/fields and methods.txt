@@ -1,0 +1,266 @@
+Fields and Methods 
+
+This is one of the MOST important sections in OOP. If you understand this deeply, the rest (constructors, encapsulation, inheritance) becomes easy.
+
+A. What Are Fields? (Also called: member variables, instance variables, attributes)
+Definition
+
+Fields are variables declared inside a class but outside any method.
+They represent the state/data of an object.
+
+Example:
+
+public class Person {
+    String name;   // field
+    int age;       // field
+}
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+1. Where do fields live in memory?
+
+Each object has its own copy of the instance fields.
+
+When you write:
+
+Person p1 = new Person();
+Person p2 = new Person();
+
+
+p1 has its own name and age,
+p2 has its own name and age.
+
+These are independent.
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+2. Types of fields
+
+There are 2 main types:
+
+
+
+(1) Instance fields (most common)
+
+
+Declared without static.
+
+Characteristics:
+
+     Belong to each object individually.
+     Created when object is created (new Person()).
+     Destroyed when object is garbage collected.
+
+Example:
+
+class Dog {
+    String breed;
+    int age;
+}
+
+
+Each Dog object has its own breed and age.
+
+
+(2) Static fields
+
+We will learn static deeply in its own section, but for now:
+belong to the class itself, not individual objects.
+all objects share this one field.
+
+Example:
+
+class Car {
+    static int totalCars = 0;
+}
+
+3. Default values of fields
+
+If you don’t initialize fields, Java gives them default values:
+
+| Type                    | Default  |
+| ----------------------- | -------- |
+| int                     | 0        |
+| double                  | 0.0      |
+| boolean                 | false    |
+| String/object reference | null     |
+| char                    | '\u0000' |
+
+
+Note: Local variables (inside methods) do not get default values — you must initialize them.
+------------------------------------------------------------------------------------------------------------------------------------------
+B. What Are Methods?
+Definition
+
+Methods are functions inside a class. They define the behavior of an object.
+
+Example:
+
+class Person {
+    String name;
+
+    void sayHello() {     // method
+        System.out.println("Hi, I'm " + name);
+    }
+}
+
+1. Why do we need methods?
+
+To manipulate object state (fields)
+To perform calculations
+To define how objects behave
+To hide implementation (encapsulation)
+
+To reuse code
+-------------------------------------------------------------------------------------------------------------------
+2. Types of methods
+
+
+(1) Instance methods
+
+Most common.
+
+require an object to call them.
+can access instance fields and instance methods.
+can also access static fields/methods.
+
+Example:
+
+Person p = new Person();
+p.sayHello();
+
+
+(2) Static methods
+
+We will learn deeply in “static vs instance” section.
+Do NOT require an object.
+Cannot access instance fields (because no object exists).
+
+Example:
+
+Math.sqrt(25);  // static method
+
+
+------------------------------------------------------------------------------------------------------------------------------------------
+C. Method Structure (Anatomy)
+
+Example method:
+
+public int add(int a, int b) {
+    return a + b;
+}
+
+
+Breakdown:
+
+| Part             | Meaning         |
+| ---------------- | --------------- |
+| `public`         | Access modifier |
+| `int`            | Return type     |
+| `add`            | Method name     |
+| `(int a, int b)` | Parameters      |
+| `{ ... }`        | Method body     |
+
+
+Must return a value of that type.
+If return type is void, no value is returned.
+
+
+
+
+2. Parameters
+
+Used to pass values to the method.
+Call by value (Java rule)
+
+Java always passes parameters by value, even objects.
+But object references are copied, so it feels like call by reference.
+
+Example:
+
+void setAge(int newAge) {
+    age = newAge;
+}
+
+
+
+3. Method Overloading
+
+Two methods with the same name but different parameter lists.
+
+Example:
+
+void print(String s) {}
+void print(int n) {}
+void print(String s, int n) {}
+
+
+Rules:
+
+Different number of parameters OR
+Different types of parameters
+
+D. Accessing Fields & Methods
+
+1. Using object reference
+
+Student s = new Student();
+s.name = "Miyuru";
+s.showName();
+
+
+2. Using this
+
+We will learn deeply later, but basic idea:
+
+this = current object
+Used when field name and parameter name are same.
+
+Example:
+
+void setName(String name) {
+    this.name = name;  // this.name = field, name = parameter
+}
+
+
+
+E. Interaction of Fields & Methods
+
+Fields are the state.
+Methods are the behavior.
+
+Methods can:
+
+read fields
+write fields
+perform operations using them
+
+Example:
+
+class BankAccount {
+    double balance;
+
+    void deposit(double amount) {
+        balance += amount;  // modifying field inside method
+    }
+
+    void printBalance() {
+        System.out.println(balance);
+    }
+}
+
+F. Very Important: Instance Method Calling Rules
+
+Inside an instance method:
+
+You can access instance fields
+You can access instance methods
+You can access static fields
+You can access static methods
+
+Inside a static method:
+
+You cannot access instance fields/methods
+(because no object exists)
+
+You can access static fields/methods
+
+We will go very deep in “static vs instance” section.

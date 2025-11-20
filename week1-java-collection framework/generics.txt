@@ -1,0 +1,245 @@
+What Are Generics in Java?
+
+Simple Definition
+
+Generics allow you to write classes, interfaces, and methods that work with any data type, while still maintaining type safety at compile time.
+
+Deep Meaning
+
+Before generics, collections in Java (like ArrayList) could store any object, so you had to cast objects manually.
+This caused runtime errors.
+
+Generics solve this problem by binding a type at compile time.
+
+🧠 Real-World Analogy
+
+Think of a box:
+
+Normal box = can put anything inside → risky (could break stuff)
+
+Generic box = specify “this box only holds books” → safer, no mistakes
+
+Example:
+
+Box<String> bookBox = new Box<>();
+
+bookBox.setItem("Java Book"); // ✅ Works
+// bookBox.setItem(123);      // ❌ Compile-time error
+
+📌 Why Generics Are Needed
+
+Type Safety
+
+Prevents runtime errors by checking types at compile time.
+Code Reusability
+Write one class/method that works for multiple types.
+
+Eliminates Casting
+
+Before generics:
+
+ArrayList list = new ArrayList();
+list.add("Hello");
+String s = (String) list.get(0); // Need casting
+
+
+With generics:
+
+ArrayList<String> list = new ArrayList<>();
+list.add("Hello");
+String s = list.get(0); // No casting needed
+
+------------------------------------------------------------------------------------------------------
+
+📌 Generic Classes
+
+// Generic class
+class Box<T> {
+    private T item;
+
+    public void setItem(T item) {
+        this.item = item;
+    }
+
+    public T getItem() {
+        return item;
+    }
+}
+
+Usage:
+public class Main {
+    public static void main(String[] args) {
+        Box<String> stringBox = new Box<>();
+        stringBox.setItem("Java");
+        System.out.println(stringBox.getItem());
+
+        Box<Integer> intBox = new Box<>();
+        intBox.setItem(100);
+        System.out.println(intBox.getItem());
+    }
+}
+
+
+Output:
+
+Java
+100
+
+
+✅ Key point:
+
+T is a type parameter.
+Can be any reference type (Integer, String, custom class, etc.)
+
+
+------------------------------------------------------------------------------------------------------
+
+📌 Generic Methods
+
+You can also create methods that work for any type.
+
+class Utils {
+    public static <T> void printArray(T[] array) {
+        for (T element : array) {
+            System.out.print(element + " ");
+        }
+        System.out.println();
+    }
+}
+
+Usage:
+Integer[] intArr = {1, 2, 3};
+String[] strArr = {"A", "B", "C"};
+
+Utils.printArray(intArr);
+Utils.printArray(strArr);
+
+
+Output:
+
+1 2 3
+A B C
+
+
+✅ Key point:
+
+<T> before return type defines a generic method.
+
+Works independently of class generics.
+------------------------------------------------------------------------------------------------------
+
+📌 Bounded Type Parameters
+
+Sometimes, you want only specific types (e.g., Number or its subclasses).
+Use extends keyword:
+
+class Calculator<T extends Number> {
+    public double square(T number) {
+        return number.doubleValue() * number.doubleValue();
+    }
+}
+
+Usage:
+Calculator<Integer> intCalc = new Calculator<>();
+System.out.println(intCalc.square(5)); // 25.0
+
+Calculator<Double> doubleCalc = new Calculator<>();
+System.out.println(doubleCalc.square(4.5)); // 20.25
+
+// Calculator<String> strCalc = new Calculator<>(); // ❌ Compile-time error
+
+
+✅ Key point:
+
+T extends Number ensures only numeric types can be used.
+------------------------------------------------------------------------------------------------------
+
+📌 Multiple Type Parameters
+
+
+class Pair<K, V> {
+    private K key;
+    private V value;
+
+    public Pair(K key, V value) {
+        this.key = key;
+        this.value = value;
+    }
+
+    public K getKey() { return key; }
+    public V getValue() { return value; }
+}
+
+Usage:
+Pair<Integer, String> pair = new Pair<>(1, "One");
+System.out.println(pair.getKey() + " = " + pair.getValue());
+
+
+Output:
+
+1 = One
+
+
+✅ Key point:
+
+<K, V> = multiple generic types for key/value pairs or any related objects.
+------------------------------------------------------------------------------------------------------
+
+📌 Wildcards ? in Generics
+
+Wildcards allow flexible type matching in method parameters or collections.
+
+1.Unbounded wildcard ?
+
+List<?> list = new ArrayList<String>();
+
+  Can hold any type
+  Read-only
+
+
+
+2.Upper-bounded wildcard ? extends Type
+
+List<? extends Number> nums = new ArrayList<Integer>();
+
+
+Accepts Number or its subclasses
+Can read items, but cannot add new elements
+
+3.Lower-bounded wildcard ? super Type
+
+List<? super Integer> nums = new ArrayList<Number>();
+
+
+Accepts Integer or its superclasses
+Can add Integer objects
+
+------------------------------------------------------------------------------------------------------
+
+📌 Generics with Inheritance
+
+
+class Parent {}
+class Child extends Parent {}
+
+Box<Parent> parentBox = new Box<>();
+Box<Child> childBox = new Box<>();
+
+// parentBox = childBox; // ❌ Compile-time error
+
+
+✅ Important:
+
+Generics are invariant: Box<Child> is NOT a Box<Parent>
+
+Use wildcards to allow flexibility:
+
+Box<? extends Parent> box = childBox; // ✅
+------------------------------------------------------------------------------------------------------
+
+🧠 Key Advantages of Generics
+
+Type safety at compile time → reduces runtime errors
+Code reusability → one generic class/method works for multiple types
+No explicit casting → cleaner and safer code
+Works well with collections → ArrayList, HashMap, etc.

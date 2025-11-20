@@ -1,0 +1,200 @@
+Static vs Instance — Deep Explanation
+
+Understanding static vs instance is crucial in Java OOP. It affects memory, behavior, and how your objects and classes interact.
+
+A. What is Static?
+
+Static in Java means the member (field, method, block, or nested class) belongs to the class itself, not to any particular object.
+Shared across all objects
+Exists even if no objects are created
+Stored in the method area (part of JVM memory for class-level data)
+
+B. What is Instance?
+
+Instance members (fields/methods) belong to objects, not the class.
+Each object gets its own copy of instance fields
+Methods operate on the specific object (this)
+Stored on the heap inside the object
+
+C. Memory Layout: Static vs Instance
+
+| Feature    | Instance (non-static)  | Static (class-level)         |
+| ---------- | ---------------------- | ---------------------------- |
+| Belongs to | Object                 | Class                        |
+| Memory     | Heap (each object)     | Method Area (once per class) |
+| Access     | Through object         | Through class name           |
+| Created    | When object is created | When class is loaded         |
+| Modified   | Object-specific        | Shared by all objects        |
+
+
+
+D. Static Fields (Class Variables)
+
+Example:
+class Car {
+    String model;          // instance field
+    static int totalCars;  // static field
+
+    Car(String model) {
+        this.model = model;
+        totalCars++;       // increment class-level counter
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Car c1 = new Car("Toyota");
+        Car c2 = new Car("Honda");
+
+        System.out.println(c1.model);     // Toyota
+        System.out.println(c2.model);     // Honda
+        System.out.println(Car.totalCars); // 2 (shared)
+    }
+}
+
+
+Key points:
+
+totalCars is shared among all objects
+model is object-specific
+
+
+
+E. Static Methods
+
+Can be called without creating an object
+Cannot access instance fields/methods directly
+Can access static fields/methods
+
+Example:
+
+class MathUtils {
+    static double pi = 3.1415;
+
+    static double square(double n) {
+        return n * n;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        System.out.println(MathUtils.pi);       // 3.1415
+        System.out.println(MathUtils.square(5)); // 25.0
+    }
+}
+
+
+
+F. Instance Methods
+
+Must be called via an object
+Can access instance fields/methods and static fields/methods
+
+Operates on specific object (via this)
+
+Example:
+class Circle {
+    double radius;
+
+    Circle(double radius) {
+        this.radius = radius;
+    }
+
+    double area() {
+        return Math.PI * radius * radius; // uses instance field
+    }
+}
+
+
+
+G. When to Use Static vs Instance
+
+
+
+| Use Case                       | Choose Static? | Choose Instance? |
+| ------------------------------ | -------------- | ---------------- |
+| Shared counter for all objects | ✅              | ❌                |
+| Properties unique to object    | ❌              | ✅                |
+| Utility methods (Math, Utils)  | ✅              | ❌                |
+| Object behavior using state    | ❌              | ✅                |
+
+
+
+H. Static Blocks (Initialization)
+
+
+Used to initialize static variables:
+
+class Example {
+    static int count;
+
+    static {
+        count = 100;
+        System.out.println("Static block executed");
+    }
+}
+
+
+Runs once when class is loaded
+Useful for constants, configuration
+
+
+I. Important Rules & Notes
+
+Static methods cannot use this → no object reference
+Static fields are shared → modifying affects all objects
+Instance methods can use this and access static fields
+Static inner classes cannot access outer instance members directly
+
+Memory-wise:
+
+Static → Method Area (class-level)
+Instance → Heap (object-level)
+
+
+J. Practical Example
+
+
+class BankAccount {
+
+    String accountNumber;         // instance
+    double balance;               // instance
+    static double interestRate;   // static
+
+    BankAccount(String acc, double bal) {
+        this.accountNumber = acc;
+        this.balance = bal;
+    }
+
+    void deposit(double amount) {
+        balance += amount;  // instance operation
+    }
+
+    static void setInterestRate(double rate) {
+        interestRate = rate; // shared across all accounts
+    }
+
+    void printDetails() {
+        System.out.println(accountNumber + " " + balance + " " + interestRate);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        BankAccount.setInterestRate(5.0);
+
+        BankAccount a1 = new BankAccount("A1", 1000);
+        BankAccount a2 = new BankAccount("A2", 2000);
+
+        a1.printDetails(); // A1 1000.0 5.0
+        a2.printDetails(); // A2 2000.0 5.0
+    }
+}
+
+
+
+
+
+
+
+

@@ -1,0 +1,153 @@
+🔹 1. Abstract Class: Notification
+
+
+abstract class Notification {
+
+Defines an abstract class called Notification.
+Purpose: Serve as a base type for all notification types.
+Cannot create objects of Notification directly.
+
+
+private String recipient;
+
+Field to store who will receive the notification (email, phone, userID).
+Marked private → encapsulation; access via getter.
+
+
+public Notification(String recipient) { this.recipient = recipient; }
+
+Constructor to initialize recipient.
+All subclasses must call this constructor using super(...).
+
+
+public String getRecipient() { return recipient; }
+
+Getter for recipient.
+Subclasses use this to access recipient without breaking encapsulation.
+
+
+public abstract void send(String message);
+
+Abstract method: every subclass must implement send().
+This is core of polymorphism: different notification types implement send differently.
+No body here → defines contract only.
+--------------------------------------------------------------------------------------------------
+🔹 2. Subclass: EmailNotification
+
+class EmailNotification extends Notification {
+
+Subclass inherits from Notification.
+Represents sending email notifications.
+-------------------------------------------------------------------------------------------------
+Constructor
+
+public EmailNotification(String recipient) { super(recipient); }
+
+Calls parent constructor to set recipient.
+-------------------------------------------------------------------------------------------------
+Override send()
+
+@Override
+public void send(String message) {
+    System.out.println("Email sent to " + getRecipient() + ": " + message);
+}
+
+
+Implements send() for email.
+Prints message showing it’s an email.
+Unique behavior for this subclass.
+--------------------------------------------------------------------------------------------------
+🔹 3. Subclass: SMSNotification
+
+class SMSNotification extends Notification {
+Represents SMS notifications.
+
+Constructor
+
+public SMSNotification(String recipient) { super(recipient); }
+
+Same pattern as EmailNotification.
+
+Override send()
+@Override
+public void send(String message) {
+    System.out.println("SMS sent to " + getRecipient() + ": " + message);
+}
+
+
+SMS-specific behavior.
+
+Message format differs from Email.
+--------------------------------------------------------------------------------------------------
+🔹 4. Subclass: PushNotification
+
+class PushNotification extends Notification {
+
+Represents push notifications to app users.
+-------------------------------------------------------------------------------------------------
+Constructor
+
+public PushNotification(String recipient) { super(recipient); }
+
+Sets recipient.
+-------------------------------------------------------------------------------------------------
+Override send()
+
+@Override
+public void send(String message) {
+    System.out.println("Push notification sent to " + getRecipient() + ": " + message);
+}
+
+
+Push-specific behavior.
+--------------------------------------------------------------------------------------------------
+🔹 5. NotificationService class
+
+class NotificationService {
+
+A service class that uses polymorphism to send notifications.
+Does not care about the specific notification type.
+
+public void notifyUser(Notification notification, String msg) { notification.send(msg); }
+
+Accepts Notification reference (parent type) and message.
+Key polymorphism: at runtime, Java calls the correct send() method depending on the object (EmailNotification, SMSNotification, PushNotification).
+
+--------------------------------------------------------------------------------------------------
+🔹 6. Main Method
+
+NotificationService service = new NotificationService();
+
+Create service object.
+
+Examples of calling notifyUser
+service.notifyUser(new EmailNotification("abc@mail.com"), "Welcome!");
+service.notifyUser(new SMSNotification("0771234567"), "Your OTP is 1234");
+service.notifyUser(new PushNotification("user123"), "You have a new message");
+
+
+Each call passes a different subclass object as the Notification type.
+Single method call (notifyUser) → different behavior depending on object.
+This is runtime polymorphism in action.
+
+--------------------------------------------------------------------------------------------------
+🔹 7. Why This Is Polymorphism
+
+notifyUser(Notification notification, String msg) works for all subclasses.
+
+At runtime:
+
+If EmailNotification → send() runs Email version
+If SMSNotification → send() runs SMS version
+If PushNotification → send() runs Push version
+
+Same method call → different behavior depending on the object.
+
+--------------------------------------------------------------------------------------------------
+🔹 8. Other Concepts Demonstrated
+
+Abstraction → abstract class hides how each notification sends messages.
+Encapsulation → recipient is private, accessed via getter.
+Polymorphism → service method works with any subclass.
+Code Reuse → common constructor, getters in abstract class.
+Real-world design → similar to notification systems in backend applications.

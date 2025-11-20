@@ -1,0 +1,134 @@
+1. What is LinkedHashSet?
+
+LinkedHashSet is a HashSet + Linked List hybrid.
+It stores unique elements (like HashSet).
+Maintains insertion order — the order in which elements are added is preserved.
+Slightly slower than HashSet due to linked list maintenance.
+
+✅ Key idea:
+HashSet = fast but unordered
+LinkedHashSet = ordered but almost as fast
+----------------------------------------------------------------------------------------------------------------
+🔵 2. Why LinkedHashSet Exists
+
+HashSet does not maintain order:
+
+HashSet<String> set = new HashSet<>();
+set.add("A");
+set.add("B");
+set.add("C");
+System.out.println(set); // Output order can be random
+
+
+LinkedHashSet solves this problem:
+
+Keeps insertion order
+Still prevents duplicates
+
+Example:
+
+LinkedHashSet<String> set = new LinkedHashSet<>();
+set.add("A");
+set.add("B");
+set.add("C");
+System.out.println(set); // Output: [A, B, C]
+----------------------------------------------------------------------------------------------------------------
+🔵 3. Internal Structure
+
+LinkedHashSet is basically:
+
+HashMap + Doubly Linked List
+
+Each element is stored as a key in an internal HashMap (like HashSet)
+The HashMap entry is extended to store pointers to previous and next entries
+This doubly linked list preserves insertion order
+----------------------------------------------------------------------------------------------------------------
+🔵 4. How it Works Internally (Step by Step)
+Example:
+LinkedHashSet<String> set = new LinkedHashSet<>();
+set.add("A");
+set.add("B");
+set.add("C");
+
+Step 1 — Adding "A":
+
+Compute hash → determine bucket in internal HashMap
+Insert as key in HashMap
+Linked list: head → [A] ← tail
+
+Step 2 — Adding "B":
+
+Compute hash → bucket
+Insert as key in HashMap
+Linked list: [A] ↔ [B]
+
+Step 3 — Adding "C":
+
+Compute hash → bucket
+Insert as key in HashMap
+Linked list: [A] ↔ [B] ↔ [C]
+
+✅ Result: Iteration over set → A, B, C (insertion order maintained)
+----------------------------------------------------------------------------------------------------------------
+🔵 5. Duplicate Handling
+
+LinkedHashSet, like HashSet:
+Uses hashCode() + equals() to check for duplicates
+If element exists → insertion is ignored
+
+----------------------------------------------------------------------------------------------------------------
+🔵 6. Iteration
+
+Iteration uses the linked list pointers, not the hash table buckets
+Guarantees elements are iterated in insertion order
+
+Example:
+
+for(String s : set) {
+    System.out.println(s);
+}
+
+
+Output:
+
+A
+B
+C
+
+
+Even if internal hash buckets are unordered, the linked list maintains order.
+
+----------------------------------------------------------------------------------------------------------------
+
+7. Time Complexity
+
+| Operation     | Complexity   | Notes                                           |
+| ------------- | ------------ | ----------------------------------------------- |
+| add(E e)      | O(1) average | slightly slower than HashSet due to linked list |
+| remove(E e)   | O(1) average |                                                 |
+| contains(E e) | O(1) average |                                                 |
+| iteration     | O(n)         | in insertion order                              |
+
+
+----------------------------------------------------------------------------------------------------------------
+
+
+8. Advantages of LinkedHashSet
+
+Maintains insertion order
+Prevents duplicates
+Iteration order predictable
+Fast operations (almost as fast as HashSet)
+----------------------------------------------------------------------------------------------------------------
+9. Disadvantages of LinkedHashSet
+
+Slightly more memory than HashSet → linked list pointers
+Slightly slower than HashSet
+Still no sorting — use TreeSet if sorted order needed
+
+----------------------------------------------------------------------------------------------------------------
+11. When to Use LinkedHashSet
+
+When you need unique elements
+When insertion order matters
+When you don’t need sorting (otherwise use TreeSet)

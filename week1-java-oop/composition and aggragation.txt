@@ -1,0 +1,288 @@
+1. What is Aggregation?
+
+Aggregation is a special form of association in object-oriented programming where one class owns or uses another class as part of its state, but the contained object can exist independently of the container class.
+
+Key points:
+
+It represents a "has-a" relationship.
+
+It’s a weaker relationship than composition.
+Lifetime of the contained object is independent of the container object.
+Usually implemented using instance variables.
+
+------------------------------------------------------------------------------------------
+2. Aggregation vs Composition
+
+| Feature                      | Aggregation                 | Composition                       |
+| ---------------------------- | --------------------------- | --------------------------------- |
+| Relationship                 | "Has-a"                     | "Part-of"                         |
+| Lifetime of contained object | Independent                 | Dependent                         |
+| Example                      | University has Departments  | Department has Professors         |
+| Implementation               | Can use references/pointers | Usually contains objects directly |
+
+
+------------------------------------------------------------------------------------------
+3. Syntax / Example in Java
+
+Example 1: University and Department
+
+// Department class
+public class Department {
+    private String name;
+
+    public Department(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+}
+
+// University class - Aggregates Departments
+public class University {
+    private String uniName;
+    private Department[] departments; // University "has" departments
+
+    public University(String uniName, Department[] departments) {
+        this.uniName = uniName;
+        this.departments = departments; // reference is stored
+    }
+
+    public void showDepartments() {
+        System.out.println("University: " + uniName);
+        for (Department d : departments) {
+            System.out.println("Department: " + d.getName());
+        }
+    }
+}
+
+// Main
+public class Main {
+    public static void main(String[] args) {
+        Department d1 = new Department("Computer Science");
+        Department d2 = new Department("Electrical");
+
+        Department[] depts = {d1, d2};
+
+        University uni = new University("MIT", depts);
+        uni.showDepartments();
+
+        // Notice d1 and d2 still exist even if uni is destroyed
+        System.out.println("Independent Department: " + d1.getName());
+    }
+}
+
+
+Explanation:
+
+University aggregates Department.
+Department objects exist independently; even if the University object is destroyed, the Department objects still exist.
+
+This is aggregation, not composition.
+
+--------------------------------------------------------------------------------------------------
+4. Deep Aggregation
+
+Deep aggregation happens when aggregation chains are extended across multiple levels, i.e., a class aggregates another class, which itself aggregates yet another class.
+
+Example:
+
+class Engine {
+    private String type;
+    public Engine(String type) { this.type = type; }
+    public String getType() { return type; }
+}
+
+class Car {
+    private Engine engine; // Car has Engine
+    public Car(Engine engine) { this.engine = engine; }
+    public Engine getEngine() { return engine; }
+}
+
+class Person {
+    private String name;
+    private Car car; // Person has Car
+    public Person(String name, Car car) { this.name = name; this.car = car; }
+    public void showDetails() {
+        System.out.println(name + " owns a car with engine: " + car.getEngine().getType());
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Engine e = new Engine("V8");
+        Car c = new Car(e);
+        Person p = new Person("John", c);
+
+        p.showDetails();
+        // Engine exists independently of Car and Person
+    }
+}
+
+
+Explanation:
+
+Person → Car → Engine forms deep aggregation.
+Each object exists independently.
+Lifetime of Engine is independent of Car and Person.
+------------------------------------------------------------------------------------------------
+5. When to Use Aggregation
+
+When objects can exist independently.
+When you want to reuse existing classes.
+When the relationship is “has-a” but not “part-of”.
+
+Examples in real life:
+
+Library has Books (Books exist even if Library object is deleted).
+Team has Players (Players can exist independently).
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------
+
+
+1. What is Composition?
+
+Composition is a strong form of association where one class owns another class, and the lifetime of the contained object is dependent on the container object.
+
+Key points:
+
+It represents a “part-of” relationship.
+
+The contained object cannot exist independently of the container.
+Usually implemented using instance variables created inside the class.
+If the container object is destroyed, the contained object is also destroyed.
+
+2. Composition vs Aggregation
+
+Feature	Composition	Aggregation
+Relationship	“Part-of”	“Has-a”
+Lifetime of contained object	Dependent	Independent
+Example	Car has Engine	University has Department
+Implementation	Container creates/owns the object	Reference to existing object passed in
+
+------------------------------------------------------------------------------------------
+3. Example 
+
+Example: Car and Engine (Composition)
+
+// Engine class
+class Engine {
+    private String type;
+
+    public Engine(String type) {
+        this.type = type;
+    }
+
+    public String getType() {
+        return type;
+    }
+}
+
+// Car class - composition
+class Car {
+    private Engine engine; // Car "owns" Engine
+
+    // Engine is created inside Car constructor
+    public Car(String engineType) {
+        this.engine = new Engine(engineType);
+    }
+
+    public void showDetails() {
+        System.out.println("Car has engine type: " + engine.getType());
+    }
+}
+
+// Main
+public class Main {
+    public static void main(String[] args) {
+        Car c = new Car("V8");
+        c.showDetails();
+
+        // Cannot access Engine independently outside Car
+        // Engine e = new Engine("V6"); // This would be independent, not part of this composition
+    }
+}
+
+
+Explanation:
+
+Car creates and owns the Engine.
+
+Engine cannot exist independently outside Car.
+If Car is destroyed, the Engine object is also destroyed.
+------------------------------------------------------------------------------------------
+
+
+4. Deep Composition
+
+Deep composition occurs when composition is chained across multiple levels.
+
+Example: House → Room → Furniture
+
+class Furniture {
+    private String name;
+    public Furniture(String name) { this.name = name; }
+    public String getName() { return name; }
+}
+
+class Room {
+    private Furniture furniture; // Room has Furniture
+    public Room(String furnitureName) {
+        this.furniture = new Furniture(furnitureName); // Furniture created inside Room
+    }
+    public void showRoom() {
+        System.out.println("Room has furniture: " + furniture.getName());
+    }
+}
+
+class House {
+    private Room room; // House has Room
+    public House(String furnitureName) {
+        this.room = new Room(furnitureName); // Room created inside House
+    }
+    public void showHouse() {
+        room.showRoom();
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        House house = new House("Sofa");
+        house.showHouse();
+    }
+}
+
+
+Explanation:
+
+House → Room → Furniture forms deep composition.
+
+Furniture exists only as part of Room, Room exists only as part of House.
+
+Lifetime is dependent.
+
+------------------------------------------------------------------------------------------
+5. When to Use Composition
+
+When the contained object cannot exist independently.
+When you want strong ownership.
+When object’s lifecycle should be tied to the container.
+
+Real-life examples:
+
+Car → Engine
+House → Room → Furniture
+Computer → CPU / RAM
+
+6. Composition vs Aggregation vs Association (Summary)
+
+Association: Weak relationship; objects can exist independently.
+Aggregation: “Has-a” with independent lifetime.
+Composition: “Part-of” with dependent lifetime

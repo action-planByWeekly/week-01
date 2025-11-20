@@ -1,0 +1,404 @@
+Inheritance — Deep Explanation (Beginner-Friendly, Full Detail)
+
+Inheritance is one of the most important pillars of Object-Oriented Programming.
+It allows one class to reuse, extend, and modify the behavior of another class.
+--------------------------------------------------------------------------------------------------------
+A. What Is Inheritance?
+
+Inheritance means:
+
+A child class (subclass) inherits fields and methods from a parent class (superclass).
+
+So, you don’t have to rewrite the same code again.
+
+Example:
+Dog, Cat, Elephant → all are Animals.
+Each animal inherits common features (name, age, eat(), sleep()) from the "Animal" class.
+--------------------------------------------------------------------------------------------------------
+B. Why Do We Need Inheritance?
+
+1. Code Reusability
+
+Write once → use in many classes.
+
+2. Avoid Duplicated Code
+
+Common logic stays in the parent class.
+
+3. Extensibility
+
+Child class can add new features or modify parent behavior.
+
+4. Polymorphism Support
+
+Inheritance enables polymorphism, which we’ll learn next.
+--------------------------------------------------------------------------------------------------------
+C. Basic Syntax
+class Parent {
+    // fields, constructors, methods
+}
+
+class Child extends Parent {
+    // new fields or methods OR override parent methods
+}
+--------------------------------------------------------------------------------------------------------
+D. Real Example
+Superclass
+class Animal {
+    String name;
+
+    void eat() {
+        System.out.println(name + " is eating...");
+    }
+}
+
+Subclass
+class Dog extends Animal {
+    void bark() {
+        System.out.println(name + " is barking!");
+    }
+}
+
+Usage:
+Dog d = new Dog();
+d.name = "Rocky";   // inherited field
+d.eat();            // inherited method
+d.bark();           // child-specific method
+--------------------------------------------------------------------------------------------------------
+E. What Child Class Inherits
+
+✔ Fields
+✔ Methods
+✔ Non-private members
+✔ Protected members
+✔ Constructors? → NO, but child can call parent constructor using super()
+--------------------------------------------------------------------------------------------------------
+F. What Child Class Does NOT Inherit
+
+❌ Private fields
+❌ Private methods
+❌ Constructors
+❌ Parent’s static methods (but accessible)
+--------------------------------------------------------------------------------------------------------
+G. super Keyword
+
+super is used to refer to the parent class.
+
+1. Call Parent Constructor
+class Animal {
+    Animal(String name) {
+        System.out.println("Animal created: " + name);
+    }
+}
+
+class Dog extends Animal {
+    Dog() {
+        super("Dog"); // calling parent constructor
+        System.out.println("Dog created");
+    }
+}
+--------------------------------------------------------------------------------------------------------
+2. Call Parent Method
+
+super.eat();
+
+--------------------------------------------------------------------------------------------------------
+H. Method Overriding
+
+Child class provides its own version of the parent's method.
+
+class Animal {
+    void sound() {
+        System.out.println("Animal makes sound");
+    }
+}
+
+class Dog extends Animal {
+    @Override
+    void sound() {
+        System.out.println("Dog barks");
+    }
+}
+--------------------------------------------------------------------------------------------------------
+I. Types of Inheritance in Java
+
+✓ Single inheritance
+A → B
+
+✓ Multilevel inheritance
+A → B → C
+
+✓ Hierarchical inheritance
+A → B
+A → C
+A → D
+
+❌ Multiple inheritance (class to class) → NOT allowed in Java
+(because of diamond problem)
+
+But interfaces allow multiple inheritance (covered later).
+--------------------------------------------------------------------------------------------------------
+J. Access Modifiers in Inheritance
+
+
+Modifier	Child Can Access?
+public	✔ yes
+protected	✔ yes
+default	✔ yes (same package)
+private	❌ no
+
+--------------------------------------------------------------------------------------------------------
+K. Inheritance Example — With Everything Inside
+
+class Vehicle {
+    protected int speed;
+
+    Vehicle(int speed) {
+        this.speed = speed;
+    }
+
+    void run() {
+        System.out.println("Vehicle is running at " + speed);
+    }
+}
+
+class Car extends Vehicle {
+
+    Car(int speed) {
+        super(speed); // calling parent constructor
+    }
+
+    @Override
+    void run() {
+        System.out.println("Car is running smoothly at " + speed);
+    }
+}
+
+--------------------------------------------------------------------------------------------------------
+L. When Should You Use Inheritance? (Very Important)
+
+Use inheritance when you can say:
+“A is a type of B.”
+
+Examples:
+
+Dog is an Animal
+Car is a Vehicle
+Manager is an Employee
+
+Do NOT use inheritance for:
+
+Code sharing only
+Unrelated classes
+Utility/helper classes
+
+For those, you use composition, not inheritance.
+
+
+Summary
+
+Inheritance = child class reuses parent class
+Use extends
+Child inherits non-private fields & methods
+Use super() to access parent constructor and methods
+Enables code reuse and polymorphism
+
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+1. Why Getters & Setters? (Very Deep Explanation)
+
+In real OOP, you should never expose your fields directly:
+
+❌ Bad:
+
+public int age;
+
+
+This allows:
+
+invalid values
+no control
+no security
+breaks rules of encapsulation
+
+That's why we make fields private and expose them through public methods:
+
+✔ Good:
+
+private int age;
+
+public int getAge() { ... }
+public void setAge(int age) { ... }
+
+
+--------------------------------------------------------------------------------------------------------
+
+Reasons we need getters & setters:
+
+👉 1. Control how values are assigned
+
+You can validate:
+
+if (age < 0) {
+   System.out.println("Invalid age");
+}
+
+
+👉 2. Hide internal fields (data hiding)
+
+Outside code cannot directly see or change internal data.
+
+
+👉 3. Protect object state
+
+Protects object from wrong or unexpected values.
+
+
+👉 4. Allow future changes without breaking code
+
+If you change internal logic later, outside code still works.
+
+--------------------------------------------------------------------------------------------------------
+2. What Are Getters?
+
+Getter = method used to retrieve the value of a private field.
+Naming rule:
+
+public ReturnType getFieldName()
+
+
+Example:
+
+private String name;
+
+public String getName() {
+    return name;
+}
+--------------------------------------------------------------------------------------------------------
+3. What Are Setters?
+
+Setter = method used to modify the value of a private field.
+Naming rule:
+
+public void setFieldName(Type fieldValue)
+
+
+Example:
+
+public void setName(String name) {
+    this.name = name;
+}
+--------------------------------------------------------------------------------------------------------
+4. Full Example with Validation
+
+class Person {
+
+    private String name;
+    private int age;
+
+    public String getName() {
+        return name;        // just return the value
+    }
+
+    public void setName(String name) {
+        if(name == null || name.isEmpty()) {
+            System.out.println("Name cannot be empty");
+        } else {
+            this.name = name;
+        }
+    }
+
+    public int getAge() {
+        return age;         // return age
+    }
+
+    public void setAge(int age) {
+        if(age >= 0 && age <= 150) {
+            this.age = age;
+        } else {
+            System.out.println("Invalid age");
+        }
+    }
+}
+
+
+Using it:
+
+Person p = new Person();
+p.setAge(25);
+p.setName("Miyuru");
+
+System.out.println(p.getAge());  // 25
+System.out.println(p.getName()); // Miyuru
+
+--------------------------------------------------------------------------------------------------------
+
+5. Why Do We Use this Keyword Inside Setters?
+
+Inside a class method, if we have:
+
+name = name;
+
+Java gets confused: both refer to the method parameter.
+But using:
+
+this.name = name;
+
+this.name → the field of the object
+name → the parameter
+
+So we assign the parameter to the actual field.
+--------------------------------------------------------------------------------------------------------
+6. Getters/Setters and Encapsulation
+
+Encapsulation rule is:
+
+Make fields private
+Provide public getters and setters
+
+This allows:
+
+hiding data
+controlling changes
+preventing invalid values
+better maintainability
+
+--------------------------------------------------------------------------------------------------------
+7. When NOT to Use Setters? (Important)
+
+Avoid setters when you want an object to be immutable.
+
+Example: String class in Java
+Its value never changes after creation.
+
+class Point {
+    private final int x;
+    private final int y;
+
+    public Point(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public int getX() { return x; }
+    public int getY() { return y; }
+}
+
+
+No setters — fields cannot be changed. Very safe.
+--------------------------------------------------------------------------------------------------------
+8. Real Life Example
+
+Think of an ATM:
+You see your balance (getter)
+But you cannot directly set your balance
+Only deposit() or withdraw() change it → safe
+This is encapsulation using getters and limited setters.
+
+
+
+
+

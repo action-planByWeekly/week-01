@@ -1,0 +1,116 @@
+1. What is Hashtable?
+
+Hashtable is a legacy Map implementation (before Java Collections Framework).
+Stores key-value pairs.
+Keys are unique, values can be duplicated.
+Synchronized → thread-safe for multi-threaded access.
+Does not allow null key or null value.
+
+✅ Key idea: Thread-safe HashMap (older version)
+--------------------------------------------------------------------------------------------------------------
+ 2. Why Hashtable Exists
+
+Before Java 1.2, there was no Collections Framework.
+Hashtable was used for fast key-value lookup.
+Thread-safe by default → used in multi-threaded programs.
+Later, HashMap + ConcurrentHashMap replaced Hashtable in most modern code.
+
+
+--------------------------------------------------------------------------------------------------------------
+
+ 3. Internal Structure
+
+Similar to HashMap: array of buckets + linked list nodes
+Each bucket stores Entry objects:
+
+Entry {
+    int hash;
+    K key;
+    V value;
+    Entry next; // linked list for collisions
+}
+
+
+No treeification in Hashtable → long collision chains can degrade performance
+
+
+
+-----------------------------------------------------------------------------------------------------------
+
+
+4. How put() Works
+
+Compute hash of key → bucket index
+Traverse bucket to check if key exists
+
+      If exists → overwrite value
+
+      If not → create new Entry and link to bucket
+
+No null keys or null values allowed → NullPointerException if attempted
+Synchronized → only one thread can modify at a time
+--------------------------------------------------------------------------------------------------------------
+
+ 5. How get() Works
+
+Compute hash → bucket
+Traverse linked list in bucket → compare keys with equals()
+Return value if found, else null
+Synchronized → thread-safe
+
+     Average complexity: O(1)
+     Worst-case: O(n) (all keys in same bucket)
+--------------------------------------------------------------------------------------------------------------
+
+ 6. Iteration
+
+Uses Enumeration or Iterator
+Enumeration is legacy → Iterator preferred in modern code
+No guaranteed order → unordered iteration
+
+--------------------------------------------------------------------------------------------------------------
+
+10. Advantages of Hashtable
+
+
+Thread-safe → synchronized
+Provides fast key-value lookup
+Prevents null keys/values → safer for legacy programs
+--------------------------------------------------------------------------------------------------------------
+ 11. Disadvantages
+
+Synchronized → slower than HashMap
+Legacy → rarely used in modern code
+No null key or null value → less flexible
+No predictable order → unordered iteration
+
+
+---------------------------------------------------------------------------------------------------------------
+Example Code
+
+
+import java.util.Hashtable;
+
+public class HashtableExample {
+    public static void main(String[] args) {
+        Hashtable<String, Integer> table = new Hashtable<>();
+
+        table.put("Alice", 25);
+        table.put("Bob", 30);
+        table.put("Charlie", 20);
+
+        System.out.println(table); // Unordered
+
+        System.out.println(table.get("Bob")); // 30
+
+        table.remove("Charlie");
+        System.out.println(table);
+
+        // Enumeration example
+        java.util.Enumeration<String> keys = table.keys();
+        while(keys.hasMoreElements()) {
+            String key = keys.nextElement();
+            System.out.println(key + " -> " + table.get(key));
+        }
+    }
+}

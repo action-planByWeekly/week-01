@@ -1,0 +1,44 @@
+1.what is nested if ?
+
+A nested if means:
+
+An if statement inside another if statement.
+
+You use nested if when a decision depends on another decision.
+
+Think of it like this:
+
+First decision: Should I enter the house?
+
+Second decision (inside): Should I go to the kitchen?
+
+So the second decision only happens if the first one is true.
+
+
+--------------------------------------------------------------------------------------------------
+
+
+2.Why do we use nested if?
+
+Sometimes you need to check two conditions, but the second condition only matters if the first condition is true.
+
+Example in real life:
+
+If user is logged in
+
+If user is an admin
+
+Then show admin dashboard
+
+This is a perfect situation for nested if.
+
+------------------------------------------------------------------------------------------------------
+3. Basic Syntax
+
+if (condition1) {
+    // code runs only when condition1 is true
+
+    if (condition2) {
+        // code runs only when BOTH condition1 and condition2 are true
+    }
+}

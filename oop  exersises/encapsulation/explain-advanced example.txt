@@ -1,0 +1,145 @@
+1. Class Declaration
+public final class Employee {   // immutable class
+
+Meaning:
+
+public → can be accessed from anywhere.
+
+final → class cannot be extended (A requirement for immutability).
+
+Employee is the class name.
+---------------------------------------------------------------------------------------------------
+✅ 2. Private Final Variables
+    private final String name;
+    private final List<String> skills;    // mutable list inside
+
+Meaning:
+
+private → Only this class can access these fields.
+
+final → field cannot be reassigned once given a value.
+
+name is immutable (String is naturally immutable).
+
+skills is a List, which is mutable → Advanced part needed.
+---------------------------------------------------------------------------------------------------
+✅ 3. Constructor (Object Creation)
+    public Employee(String name, List<String> skills) {
+        this.name = name;
+
+        // defensive copy → TRUE encapsulation
+        this.skills = new ArrayList<>(skills);
+    }
+
+Explanation:
+this.name = name;
+
+Assign passed value to internal field.
+
+this.skills = new ArrayList<>(skills);
+
+This is important:
+
+Normally, if we did this.skills = skills;,
+→ external code could modify the list DIRECTLY.
+→ ❌ breaks encapsulation.
+
+Instead, we create a new list and copy all elements.
+→ “Defensive copy”.
+
+So even if someone modifies the original list,
+your Employee object's skills list won't change.
+---------------------------------------------------------------------------------------------------
+✅ 4. Getter for Name
+    public String getName() {
+        return name;
+    }
+
+Meaning:
+
+Just returning the value.
+
+Safe because String is immutable → cannot be changed.
+---------------------------------------------------------------------------------------------------
+✅ 5. Getter for Skills (The MOST important part)
+    public List<String> getSkills() {
+        return new ArrayList<>(skills);
+    }
+
+
+This is super important!
+
+Why NOT return skills directly?
+
+If you do:
+
+return skills;
+
+Then external code could modify the private list:
+
+emp.getSkills().add("NewSkill"); // modifies internal data!
+
+
+❌ This breaks encapsulation.
+
+Instead:
+You return a copy of the list, not the real list.
+
+return new ArrayList<>(skills);
+
+So even if someone tries:
+
+emp.getSkills().add("Hacking");
+
+It modifies only the copy, NOT the original.
+This technique is called:
+
+✔ Defensive copying
+✔ Immutable object pattern
+✔ Deep encapsulation
+---------------------------------------------------------------------------------------------------
+✅ 6. Main Class (Test Code)
+class Main {
+    public static void main(String[] args) {
+        List<String> skillList = new ArrayList<>();
+        skillList.add("Java");
+        skillList.add("Spring Boot");
+
+Explanation:
+
+Create a normal list skillList.
+
+Add skills.
+
+        Employee emp = new Employee("Miyuru", skillList);
+
+
+Create Employee object.
+
+Internally → constructor makes a copy of skillList.
+
+        // try to modify original list
+        skillList.add("React");
+
+Important:
+
+You changed the original list.
+
+But Employee’s internal list remains unchanged because we copied it.
+This proves encapsulation is working.
+
+        // try modifying returned list
+        emp.getSkills().add("Hacking");
+
+
+You modify the copy returned by getSkills(), NOT the real one.
+
+        System.out.println(emp.getSkills());
+
+Output:
+[Java, Spring Boot]
+
+
+✔ NOT modified.
+✔ Protected.
+✔ Fully encapsulated.

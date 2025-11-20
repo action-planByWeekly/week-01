@@ -1,0 +1,170 @@
+🔵 1. Abstract Class: DeliveryService
+abstract class DeliveryService {
+
+What this means:
+
+You cannot create objects from an abstract class.
+
+It can contain:
+
+abstract methods (no body)
+
+concrete methods (with body)
+
+fields
+
+constructors
+
+Common fields for all deliveries
+private String orderId;
+private double distanceKm;
+
+
+These belong to ALL delivery types.
+
+Constructor
+public DeliveryService(String orderId, double distanceKm) {
+    this.orderId = orderId;
+    this.distanceKm = distanceKm;
+}
+
+
+Every delivery type must have:
+
+orderId
+
+distanceKm
+
+Child classes call this using super(...).
+
+Getters
+public String getOrderId() { return orderId; }
+public double getDistanceKm() { return distanceKm; }
+
+
+Child classes will use these values.
+
+🔵 2. Abstract Methods
+public abstract double calculateCost();
+public abstract void deliver();
+
+
+These methods MUST be implemented by any class that extends DeliveryService.
+
+This is the core use of abstraction:
+
+Parent class defines the rules, child classes define how.
+
+🔵 3. Concrete Method
+public void printReceipt(double cost) {
+    System.out.println("Order ID: " + orderId);
+    System.out.println("Distance: " + distanceKm + " km");
+    System.out.println("Total Cost: " + cost);
+    System.out.println("---------------------------");
+}
+
+
+This method can be used by ALL types of delivery.
+
+Code reuse → avoids rewriting the same code in every subclass.
+
+🟣 4. Subclass 1: NormalDelivery
+class NormalDelivery extends DeliveryService {
+
+
+This means:
+
+NormalDelivery inherits from DeliveryService.
+
+Must implement all abstract methods.
+
+Constructor
+public NormalDelivery(String orderId, double distanceKm) {
+    super(orderId, distanceKm);
+}
+
+
+super() calls the parent’s constructor.
+
+Implementation 1: Cost
+@Override
+public double calculateCost() {
+    return getDistanceKm() * 20;
+}
+
+
+Normal delivery cost = distance × Rs.20
+
+Implementation 2: Deliver
+@Override
+public void deliver() {
+    System.out.println("Normal delivery started for " + getOrderId());
+}
+
+🟣 5. Subclass 2: ExpressDelivery
+class ExpressDelivery extends DeliveryService {
+
+Constructor
+
+Same super call.
+
+Cost calculation
+@Override
+public double calculateCost() {
+    return (getDistanceKm() * 20) + 200; // express fee
+}
+
+
+Express delivery adds an extra fee of Rs.200.
+
+Deliver method
+@Override
+public void deliver() {
+    System.out.println("Express delivery started for " + getOrderId());
+}
+
+🟢 6. Main Class (Execution)
+DeliveryService d1 = new NormalDelivery("OD123", 10);
+
+Very important:
+
+The reference type is DeliveryService (parent class).
+The object type is NormalDelivery (child class).
+
+This is polymorphism.
+
+Now calling methods:
+double cost1 = d1.calculateCost(); // calls NormalDelivery version
+d1.deliver();                      // calls NormalDelivery version
+d1.printReceipt(cost1);            // inherited method
+
+Second object:
+DeliveryService d2 = new ExpressDelivery("OD987", 5);
+
+
+Again polymorphism.
+
+Execution:
+
+double cost2 = d2.calculateCost(); // ExpressDelivery version
+d2.deliver();                      // ExpressDelivery version
+d2.printReceipt(cost2);            // inherited method
+
+🚀 7. Final Output Breakdown
+
+For NormalDelivery:
+
+Normal delivery started for OD123
+Order ID: OD123
+Distance: 10.0 km
+Total Cost: 200.0
+---------------------------
+
+
+For ExpressDelivery:
+
+Express delivery started for OD987
+Order ID: OD987
+Distance: 5.0 km
+Total Cost: 300.0
+---------------------------

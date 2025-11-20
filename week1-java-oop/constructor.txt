@@ -1,0 +1,372 @@
+Constructors 
+
+Constructors are one of the most misunderstood OOP concepts for beginners.
+We will learn what they are, why they exist, how they work, types, rules, memory behavior, best practices, mistakes, and interview-level details.
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+A. What is a Constructor?
+
+A constructor is a special method that runs automatically when you create an object using new.
+
+Example:
+
+Person p = new Person();
+
+
+Here, Person() is the constructor.
+
+Purpose
+
+A constructor is used to:
+
+Initialize the object’s fields
+Put the object in a valid/usable state
+Perform setup logic (if needed)
+
+You can think of a constructor as:
+👉 "the method that builds the object and sets it up".
+
+--------------------------------------------------------------------------------------------------------------------
+B. Characteristics of Constructors
+
+
+1. Name must match class name
+class Car {
+    Car() { }
+}
+
+2. No return type
+
+Not even void.
+This is what makes constructors special.
+
+
+--------------------------------------------------------------------------------------------------------------------
+C. Types of Constructors
+
+1. Default Constructor (provided by Java)
+
+If you don’t write any constructor, Java automatically creates a no-argument constructor.
+
+Example:
+
+class A { }
+
+
+Java adds this:
+
+A() { }
+
+
+Used when:
+
+A obj = new A();
+
+But important:
+
+If you declare any constructor yourself, the default constructor disappears.
+
+2. No-Argument Constructor (you write it)
+class Person {
+    Person() {
+        System.out.println("Creating new person...");
+    }
+}
+--------------------------------------------------------------------------------------------------------------------
+3. Parameterized Constructor
+
+Very important.
+
+You pass values at object creation.
+
+Example:
+
+class Person {
+    String name;
+    int age;
+
+    Person(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+}
+
+
+Usage:
+
+Person p = new Person("Miyuru", 25);
+
+
+This is the most common form, especially in real projects.
+
+
+
+--------------------------------------------------------------------------------------------------------------------
+4. Constructor Overloading
+
+You can have multiple constructors with different parameters.
+
+Example:
+
+class Book {
+    String title;
+    int pages;
+
+    Book() {
+        this.title = "Unknown";
+        this.pages = 0;
+    }
+
+    Book(String title) {
+        this.title = title;
+        this.pages = 100;
+    }
+
+    Book(String title, int pages) {
+        this.title = title;
+        this.pages = pages;
+    }
+}
+
+
+Why overload?
+
+Flexibility
+Provide default values
+Adapt to different inputs
+
+
+--------------------------------------------------------------------------------------------------------------------
+
+
+D. How Constructors Work in Memory (Important)
+
+When you write:
+
+Car c = new Car();
+
+
+Steps in JVM memory:
+
+Memory allocated on heap for Car object.
+All fields get default values.
+Constructor runs.
+Field values are updated by constructor logic.
+Reference variable c points to the object.
+
+--------------------------------------------------------------------------------------------------------------------
+
+E. this() Constructor Call — Calling One Constructor From Another
+
+Used to reduce code duplication.
+
+Example:
+class Student {
+    String name;
+    int age;
+
+    Student() {
+        this("Unknown", 0);  // call parameterized constructor
+    }
+
+    Student(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+}
+
+
+Rules:
+
+Must be the first line in the constructor.
+Helps reuse logic.
+
+--------------------------------------------------------------------------------------------------------------------
+
+
+F. Difference: Constructor vs Method
+
+| Constructor                          | Method                           |
+| ------------------------------------ | -------------------------------- |
+| No return type                       | Has a return type                |
+| Name = class name                    | Name = anything                  |
+| Called automatically with `new`      | Called manually                  |
+| Initializes object                   | Performs operations on an object |
+| Cannot be abstract, final, or static | Can be any                       |
+
+--------------------------------------------------------------------------------------------------------------------
+I. Best Practices
+
+✔ Always initialize fields using constructors
+✔ Prefer parameterized constructors
+✔ Use constructor chaining (this()) to reduce duplication
+✔ Validate input inside constructors
+✔ Keep constructors simple — heavy logic should go to methods
+
+
+
+--------------------------------------------------------------------------------------------------------------------
+
+this Keyword 
+
+
+
+The this keyword is one of the most useful concepts in Java OOP. Understanding it deeply makes constructors, methods,
+ and even design patterns much easier.
+
+--------------------------------------------------------------------------------------------------------------------
+
+A. What is this?
+
+this is a reference variable that points to the current object — the object whose method or constructor is being executed.
+Think:
+
+“this = me, the current object”
+
+
+--------------------------------------------------------------------------------------------------------------------
+
+B. Uses of this Keyword
+
+There are 4 main uses:
+
+--------------------------------------------------------------------------------------------------------------------
+
+1. Refer current object’s fields
+
+When a method or constructor parameter has the same name as a field, this is used to distinguish.
+
+Example:
+
+class Person {
+    String name;
+    int age;
+
+    Person(String name, int age) {
+        this.name = name; // this.name -> field, name -> parameter
+        this.age = age;
+    }
+
+    void printName() {
+        System.out.println(this.name); // optional; could use name
+    }
+}
+
+
+Without this, Java thinks you are assigning the parameter to itself:
+
+name = name; // WRONG
+
+
+
+--------------------------------------------------------------------------------------------------------------------
+
+2. Call another constructor (Constructor Chaining)
+
+Inside a class, you can call another constructor using this().
+Rules:
+
+Must be the first line in the constructor.
+Helps reduce duplicate code.
+
+Example:
+
+class Student {
+    String name;
+    int age;
+
+    Student() {
+        this("Unknown", 0);  // calls parameterized constructor
+    }
+
+    Student(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+}
+
+--------------------------------------------------------------------------------------------------------------------
+
+3. Pass current object as a parameter
+
+You can pass the current object to other methods or constructors using this.
+
+Example:
+
+class Printer {
+    void print(Person p) {
+        System.out.println("Printing: " + p.name);
+    }
+}
+
+class Person {
+    String name;
+
+    Person(String name) {
+        this.name = name;
+    }
+
+    void show(Printer printer) {
+        printer.print(this); // pass current object
+    }
+}
+--------------------------------------------------------------------------------------------------------------------
+4. Return current object from a method
+
+Useful for method chaining, a common pattern in Java.
+
+Example:
+
+class Calculator {
+    int result = 0;
+
+    Calculator add(int n) {
+        result += n;
+        return this; // return current object
+    }
+
+    Calculator multiply(int n) {
+        result *= n;
+        return this;
+    }
+
+    void printResult() {
+        System.out.println(result);
+    }
+}
+
+
+Usage:
+
+Calculator calc = new Calculator();
+calc.add(5).multiply(2).printResult(); // 10
+
+
+--------------------------------------------------------------------------------------------------------------------
+
+C. Memory Perspective
+
+When a method or constructor is called:
+JVM creates a call frame on stack
+this reference is passed automatically to the method
+this points to the object that called the method
+
+Visual:
+
+Person p = new Person("Alice", 25);
+p.printName();
+
+Inside printName:
+this --> points to object 'p'
+
+
+--------------------------------------------------------------------------------------------------------------------
+
+D. this vs super (preview)
+
+this → refers to current class/object
+super → refers to parent class/object (used in inheritance)
+Important in constructor chaining and method overriding
+
+
+

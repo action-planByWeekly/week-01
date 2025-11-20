@@ -1,0 +1,262 @@
+1. What is Inheritance?
+
+Definition:
+Inheritance is an OOP concept that allows one class to acquire the properties (fields) and behaviors (methods) of another class.
+
+The class that inherits is called the subclass / child class.
+
+The class being inherited from is called the superclass / parent class.
+------------------------------------------------------------------------------------------
+Why use inheritance?
+
+Code reusability – You don’t have to rewrite common code.
+
+Method overriding – Allows you to provide a new implementation for inherited methods.
+
+Polymorphism – A child class can be treated as a parent class type.
+
+Logical hierarchy – Represents real-world relationships (e.g., Dog is an Animal).
+------------------------------------------------------------------------------------------
+2. Syntax in Java
+
+
+class Parent {
+    int x = 10;
+
+    void show() {
+        System.out.println("Parent show method");
+    }
+}
+
+class Child extends Parent {
+    int y = 20;
+
+    void display() {
+        System.out.println("Child display method");
+    }
+}
+
+public class TestInheritance {
+    public static void main(String[] args) {
+        Child obj = new Child();
+        obj.show();      // inherited from Parent
+        obj.display();   // own method
+        System.out.println(obj.x); // inherited variable
+        System.out.println(obj.y); // own variable
+    }
+}
+
+
+Output:
+
+Parent show method
+Child display method
+10
+20
+
+
+✅ Here, Child inherits show() and x from Parent.
+------------------------------------------------------------------------------------------
+3. Types of Inheritance in Java
+
+Java supports different types of inheritance except multiple inheritance with classes (we’ll discuss why):
+
+Single Inheritance – A child inherits from one parent.
+
+class A {}
+class B extends A {}
+
+
+Multilevel Inheritance – Chain of inheritance (grandparent → parent → child).
+
+class A {}
+class B extends A {}
+class C extends B {}
+
+
+Hierarchical Inheritance – Multiple children inherit from one parent.
+
+class A {}
+class B extends A {}
+class C extends A {}
+
+
+Hybrid Inheritance (through interfaces) – Java allows multiple inheritance using interfaces because multiple classes cannot inherit from one class directly.
+------------------------------------------------------------------------------------------
+4. Rules and Key Points
+
+extends keyword – Used to inherit a class.
+
+Single class inheritance – A class can inherit from only one class (no multiple inheritance for classes).
+
+Constructors are not inherited – Child cannot use parent’s constructor directly but can call it using super().
+
+super keyword – Refers to parent class members or constructor.
+
+Overriding methods – Child can provide a new implementation for parent methods.
+
+final keyword –
+
+final class → cannot be inherited.
+final method → cannot be overridden.
+
+Access modifiers:
+
+private members → not inherited.
+default, protected, public → inherited according to package.
+
+------------------------------------------------------------------------------------------
+5. Using super
+
+a) Call parent variable
+class Parent {
+    int x = 10;
+}
+
+class Child extends Parent {
+    int x = 20;
+
+    void show() {
+        System.out.println("Child x = " + x);
+        System.out.println("Parent x = " + super.x);
+    }
+}
+
+public class TestSuper {
+    public static void main(String[] args) {
+        Child c = new Child();
+        c.show();
+    }
+}
+
+
+Output:
+
+Child x = 20
+Parent x = 10
+
+b) Call parent method
+class Parent {
+    void show() {
+        System.out.println("Parent method");
+    }
+}
+
+class Child extends Parent {
+    void show() {
+        System.out.println("Child method");
+    }
+
+    void test() {
+        super.show(); // call parent
+    }
+}
+
+public class TestSuperMethod {
+    public static void main(String[] args) {
+        Child c = new Child();
+        c.show();    // child method
+        c.test();    // parent method
+    }
+}
+
+c) Call parent constructor
+class Parent {
+    Parent() {
+        System.out.println("Parent constructor");
+    }
+}
+
+class Child extends Parent {
+    Child() {
+        super(); // optional, called automatically
+        System.out.println("Child constructor");
+    }
+}
+
+public class TestConstructor {
+    public static void main(String[] args) {
+        Child c = new Child();
+    }
+}
+
+
+Output:
+
+Parent constructor
+Child constructor
+------------------------------------------------------------------------------------------
+6. Method Overriding & Polymorphism
+
+Inheritance allows runtime polymorphism through method overriding:
+
+class Parent {
+    void show() {
+        System.out.println("Parent");
+    }
+}
+
+class Child extends Parent {
+    @Override
+    void show() {
+        System.out.println("Child");
+    }
+}
+
+public class TestOverride {
+    public static void main(String[] args) {
+        Parent p = new Child(); // polymorphism
+        p.show(); // Child method called
+    }
+}
+
+
+✅ This is dynamic method dispatch. The method executed depends on the actual object type, not the reference type.
+------------------------------------------------------------------------------------------
+7. Why Java doesn’t allow multiple inheritance (with classes)
+
+Problem: Diamond problem
+
+   A
+  / \
+ B   C
+  \ /
+   D
+
+
+If D inherits B and C, and both B & C have a method with same signature, which one should D inherit?
+
+Java avoids this ambiguity by allowing interfaces for multiple inheritance.
+------------------------------------------------------------------------------------------
+8. Advanced Concepts
+
+1.abstract classes and inheritance
+
+You can inherit abstract classes and must implement abstract methods unless child is also abstract.
+
+2.interface inheritance
+
+Multiple interfaces can be implemented to achieve multiple inheritance.
+implements keyword is used for interfaces.
+
+3.Casting & Inheritance
+
+Parent p = new Child(); // upcasting
+Child c = (Child) p;   // downcasting
+
+
+instanceof keyword
+
+if(p instanceof Child){
+    System.out.println("p is a Child object");
+}
+
+------------------------------------------------------------------------------------------
+✅ Summary
+
+Inheritance → code reuse + logical hierarchy + polymorphism.
+Syntax: class Child extends Parent.
+super keyword → access parent members or constructor.
+Supports single, multilevel, hierarchical inheritance.
+Does not allow multiple inheritance with classes, but interfaces work.
+Enables method overriding and runtime polymorphism.

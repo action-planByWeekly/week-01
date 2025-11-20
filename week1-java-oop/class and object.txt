@@ -1,0 +1,161 @@
+What is a class?
+
+A class is a blueprint or template that defines the structure and behavior (data + operations) that objects created from the
+class will have. It describes what an object is — its fields (state) and methods (behavior).
+
+Think: class = cookie cutter; object = cookie made from that cutter.
+
+
+---------------------------------------------------------------------------------------------------------------------------------------
+
+What is an object?
+
+
+An object (an instance of a class) is a concrete entity created from the class blueprint. It has actual values stored
+ in its fields and can perform behaviors (call methods).
+
+Example real-world mapping:
+
+Class: Car (blueprint)
+Object: myToyota (a particular car with color=red, fuel=50%)
+
+Why classes & objects?
+
+Model real-world entities in code.
+Group related state and behavior together.
+Encapsulation (hide internal details).
+Reuse — create many objects from one class.
+Abstraction — work with high-level concepts.
+
+---------------------------------------------------------------------------------------------------------------------------------------
+Java syntax — minimal example
+
+public class Person {
+
+    // fields (state)
+    String name;
+    int age;
+
+    // method (behavior)
+    void sayHello() {
+        System.out.println("Hello, my name is " + name + " and I'm " + age);
+    }
+}
+
+
+Creating objects (instantiation):
+
+public class Main {
+    public static void main(String[] args) {
+        Person p = new Person();  // create an object, 'p' holds reference
+        p.name = "Alice";
+        p.age = 30;
+        p.sayHello(); // prints: Hello, my name is Alice and I'm 30
+    }
+}
+
+---------------------------------------------------------------------------------------------------------------------------------------
+
+
+Key concepts & common confusions
+
+
+
+1. Reference vs actual object
+
+    Person p = new Person();
+
+
+    new Person() creates the object on the heap.
+    p is a reference variable that points to that object.
+
+    If you write Person q = p; both p and q reference the same object (aliasing).
+
+---------------------------------------------------------------------------------------------------------------------------------------
+2. Multiple objects
+
+You can create many objects from the same class:
+
+Person p1 = new Person();
+Person p2 = new Person();
+p1.name = "Alice";
+p2.name = "Bob";
+
+Each object has its own fields.
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------
+3. Default field values
+
+If fields are not initialized explicitly:
+
+     object reference fields → null
+     numeric types → 0, boolean → false, char → '\u0000'
+
+
+---------------------------------------------------------------------------------------------------------------------------------------
+4. Methods operate on an object’s state
+
+Methods can read/modify the fields of the object (the instance they are called on).
+---------------------------------------------------------------------------------------------------------------------------------------
+5. Object identity vs equality
+
+      == checks reference equality (are both references pointing to the same object).
+      .equals() (if overridden) can check logical equality (same content).
+
+
+Example:
+
+String a = new String("hi");
+String b = new String("hi");
+System.out.println(a == b);       // false (different objects)
+System.out.println(a.equals(b));  // true (same characters)
+
+---------------------------------------------------------------------------------------------------------------------------------------
+6. toString(), equals(), hashCode()
+
+Useful object methods:
+
+toString() — textual representation.
+equals() — logical equality; override when two objects with same fields should be "equal".
+hashCode() — used in hashed collections; must follow equals/hashCode contract.
+
+---------------------------------------------------------------------------------------------------------------------------------------
+7. Object lifecycle & garbage collection (brief)
+
+   Objects are created with new and live on the heap.
+   When no live references point to an object, it becomes eligible for garbage collection.
+   GC timing is not deterministic — don’t rely on finalize(); use try-with-resources for resource management.
+
+
+---------------------------------------------------------------------------------------------------------------------------------------
+8. Immutable objects
+
+If a class has only final fields and no setters and only provides values via constructor, it's immutable — safer for concurrency and reasoning.
+
+Example immutable class:
+
+public final class Point {
+    private final int x;
+    private final int y;
+    public Point(int x, int y) { this.x = x; this.y = y; }
+    public int getX() { return x; }
+    public int getY() { return y; }
+}
+
+---------------------------------------------------------------------------------------------------------------------------------------
+9. Packaging & visibility
+
+Classes belong to packages. Top-level class visibility: public or package-private. Inner classes can have other modifiers.
+
+---------------------------------------------------------------------------------------------------------------------------------------
+10. Static nested vs inner classes
+
+Static nested class does not implicitly hold a reference to outer instance.
+Non-static inner class has implicit reference to outer instance.
+(We’ll cover static vs instance in its own section later.)
+
+
+
+

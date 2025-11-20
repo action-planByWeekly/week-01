@@ -1,0 +1,153 @@
+What is else if in Java?
+
+else if is used when you have multiple conditions and you want to check them one after another,
+ in order.
+
+It’s like asking:
+
+If not this, then maybe this?
+If not that, then maybe something else?
+------------------------------------------------------------------------------------
+🧠 Where it belongs
+
+The structure always goes:
+
+if (condition1) {
+    // runs if condition1 is true
+}
+else if (condition2) {
+    // runs if condition2 is true
+}
+else if (condition3) {
+    // runs if condition3 is true
+}
+else {
+    // runs if all above conditions are false
+}
+------------------------------------------------------------------------------------
+⭐ Important Rules
+✔ Only the first true condition runs
+
+Even if other conditions are also true, they are ignored.
+
+✔ else if is optional
+
+You can have:
+
+if only
+
+if + else
+if + many else if + else
+
+✔ else must be last
+You cannot put anything after else.
+
+------------------------------------------------------------------------------------
+
+Example 1 — Simple else if chain
+
+int marks = 75;
+
+if(marks >= 90) {
+    System.out.println("A Grade");
+}
+else if(marks >= 75) {
+    System.out.println("B Grade");
+}
+else if(marks >= 60) {
+    System.out.println("C Grade");
+}
+else {
+    System.out.println("Fail");
+}
+
+Output:
+B Grade
+
+------------------------------------------------------------------------------------
+
+1. break keyword
+
+👉 Purpose:
+
+break stops a loop immediately.
+
+When Java sees break, it jumps out of the loop and continues the program after the loop.
+
+Works in:
+
+for loop
+while loop
+do-while loop
+switch statement
+-------------------------------------------------------------------------------------------------
+💡 Example 1: Stop a loop when found a number
+for(int i = 1; i <= 10; i++) {
+    if(i == 5) {
+        break;   // stop loop completely
+    }
+    System.out.println(i);
+}
+
+Output:
+1
+2
+3
+4
+
+
+The loop stops at 5 and exits
+
+Why use break?
+
+To stop searching when something is found
+To exit early
+To terminate a loop based on condition
+To exit switch-case
+
+
+---------------------------------------------------------------------------------
+2. continue keyword
+
+👉 Purpose:
+
+continue skips the current iteration of the loop
+but does NOT stop the loop.
+
+The loop continues to the next iteration.
+-------------------------------------------------------------------------------------------------
+💡 Example 1: Skip number 5
+for(int i = 1; i <= 10; i++) {
+    if(i == 5) {
+        continue;   // skip 5
+    }
+    System.out.println(i);
+}
+
+Output:
+1
+2
+3
+4
+6
+7
+8
+9
+10
+
+
+The loop does NOT stop, only skips printing 5.
+
+-------------------------------------------------------------------------------------------------
+Why use continue?
+
+To skip unwanted values
+To avoid executing some part of code for a specific condition
+To filter items inside loops
+-------------------------------------------------------------------------------------------------
+Key Differences
+
+| Keyword      | What it does                           | Loop ends? |
+| ------------ | -------------------------------------- | ---------- |
+| **break**    | completely exits the loop              | ✔ Yes      |
+| **continue** | skips current iteration & goes to next | ❌ No       |

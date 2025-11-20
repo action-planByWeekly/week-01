@@ -1,0 +1,290 @@
+1. What is HashMap? 
+
+Simple meaning:
+A HashMap is a Java data structure that stores data as key-value pairs.
+
+Example:
+
+Key → “username”
+Value → “miyuru_dapsara”
+
+You store things using a key, and you get them back using the same key.
+
+But deeper meaning:
+
+HashMap is a fast lookup table.
+It gives ultra-fast searching, inserting, updating, and deleting.
+
+Time complexity in average case:
+
+O(1) → constant time, no matter the size.
+
+Why is it fast?
+
+Because HashMap uses hashing.
+
+❓ 2. Why do we need HashMap?
+
+Without HashMap, we would store data in:
+
+Array
+
+ArrayList
+
+LinkedList
+
+But the problem is:
+
+➤ Searching is slow
+
+In a list, if you want to find “miyuru”, Java must check every element one by one → O(n) time.
+
+If the list has 1 million items → very slow.
+
+➤ No key-value relationship
+
+If you want to associate one value with another (e.g., students with marks), normal list cannot do it.
+
+➤ Duplicate detection is hard
+
+To check if something already exists, list must search one by one → slow.
+
+🌟 HashMap solves all these problems!
+
+HashMap gives:
+
+✔ Fast searching
+
+Because it directly jumps to the memory location using hash function.
+
+✔ Clear mapping
+
+Key → Value
+(Just like a dictionary, or data inside a database table)
+
+✔ No need to search manually
+
+Java uses hashing to find location.
+
+✔ Very flexible
+
+Keys can be:
+
+String
+
+Integer
+
+Object
+
+UUID
+
+Custom objects (with correct hashCode & equals)
+
+⛳ 3. Where do we use HashMap? (Real-life & coding)
+
+If you want super fast data access, use HashMap.
+
+💡 Real Life Examples:
+
+Phone contacts: Name → Phone number
+
+Dictionary: Word → Meaning
+
+Employee system: EmployeeID → Employee data
+
+Online shop: ProductID → Product details
+
+💡 Software Development Examples:
+
+Caching
+
+Database indexing
+
+Counting frequency of elements
+
+Configuration storage
+
+Session data
+
+JWT token storage
+
+User settings
+
+Login systems
+
+Example:
+
+HashMap<String, String> credentials = new HashMap<>();
+credentials.put("miyuru", "password123");
+
+
+Now login check:
+
+credentials.get("miyuru"); // O(1) – instant
+
+🚀 4. Internal Working of HashMap (Very Deep Level — Easy Explanation)
+
+HashMap's magic is in its hashing mechanism.
+
+Step-by-step internal working:
+Step 1 → Key is given
+map.put("miyuru", 100);
+
+Step 2 → Java calculates a hash code
+
+String "miyuru" → hashCode() → integer (e.g., 825337)
+
+Step 3 → HashMap converts hashcode to array index
+
+It applies a formula:
+index = hashcode % array_length
+
+Default array_length = 16
+
+Step 4 → Value stored in a bucket
+
+Bucket = one slot in the internal array.
+
+Step 5 → If two values go to same bucket
+
+This is called collision.
+
+Java uses LinkedList or Balanced Tree (Red-Black Tree) to store multiple values in the same bucket.
+
+Before Java 8 → LinkedList
+After Java 8 → Tree structure if collisions are large → faster performance
+
+Step 6 → get() works the same way
+
+Compute hash from key
+
+Jump directly to bucket
+
+Retrieve value
+
+All in O(1) time.
+
+🔥 5. Key Characteristics of HashMap
+✔ 1. Allows one null key
+
+Only one.
+
+✔ 2. Allows multiple null values
+✔ 3. Not thread-safe
+
+Multiple threads can cause inconsistent state.
+
+✔ 4. Order is not guaranteed
+
+Hashes do NOT store elements in arrival order.
+
+✔ 5. Very fast
+
+Best choice for large data.
+
+⚠ 6. When NOT to use HashMap
+❌ When you need ordering
+
+Use:
+
+LinkedHashMap → maintains insertion order
+
+TreeMap → sorted order
+
+❌ In multi-threading without synchronization
+
+Use:
+
+ConcurrentHashMap
+
+❌ When keys need sorted arrangement
+
+Use:
+
+TreeMap
+
+
+
+
+7. HashMap Important Methods
+
+
+| Method                 | Why needed         | Deep explanation                         |
+| ---------------------- | ------------------ | ---------------------------------------- |
+| `put(key, value)`      | Add/replace        | Stores value by calculating bucket index |
+| `get(key)`             | Fast search        | Calculates index, retrieves in O(1)      |
+| `remove(key)`          | Delete             | Removes key-value pair from bucket       |
+| `containsKey(key)`     | Check existence    | Searches by hash, not full scan          |
+| `containsValue(value)` | Value existence    | Slower than containsKey                  |
+| `keySet()`             | Returns all keys   | Useful for loops                         |
+| `values()`             | Returns all values | No keys                                  |
+| `entrySet()`           | Key-value pairs    | Used in iterating map                    |
+
+
+
+8. How to know when to use HashMap?
+
+Ask yourself:
+
+✔ Do I need super-fast searching?
+
+Use HashMap.
+
+✔ Do I need to map one value to another?
+
+Use HashMap.
+
+✔ Do I need unique keys?
+
+HashMap.
+
+✔ Do I need to frequently add/remove items?
+
+HashMap is perfect.
+
+✔ Do I need O(1) performance even with large data?
+
+HashMap.
+
+Examples:
+
+Username → Password
+
+StudentID → Marks
+
+ProductID → Product
+
+Error Code → Meaning
+
+Country → Population
+
+------------------------------------------------------------------------------------------
+
+HashMap vs ArrayList
+
+| Feature        | HashMap      | ArrayList       |
+| -------------- | ------------ | --------------- |
+| Speed          | Very fast    | Slower          |
+| Access         | Key-based    | Index-based     |
+| Search         | O(1)         | O(n)            |
+| Duplicate keys | Not allowed  | Allowed         |
+| Allows null    | One null key | Many nulls      |
+| Order          | No order     | Maintains order |
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------
+Small Example
+
+
+HashMap<String, Integer> map = new HashMap<>();
+
+map.put("Apple", 100);
+map.put("Banana", 150);
+map.put("Orange", 200);
+
+System.out.println(map.get("Banana")); // 150
+map.remove("Apple");
+

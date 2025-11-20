@@ -1,0 +1,134 @@
+1. Interface: PaymentGateway
+
+
+interface PaymentGateway {
+
+Declares an interface named PaymentGateway.
+Purpose: any payment class must implement pay() and refund().
+Cannot create objects of an interface.
+
+void pay(double amount);
+
+Abstract method → forces subclasses to define how payment works.
+No body; interface methods are public and abstract by default.
+
+void refund(double amount);
+
+Abstract method for refunds.
+Any class implementing this interface must define it.
+
+-----------------------------------------------------------------------------------------------
+🔹 2. Interface: Discountable
+
+interface Discountable {
+
+A separate interface for applying discounts.
+Purpose: allows some payment classes (like CreditCardPayment) to provide discount logic.
+
+double applyDiscount(double amount);
+
+Abstract method → returns discounted amount.
+Any class that implements Discountable must define this method.
+
+-----------------------------------------------------------------------------------------------
+
+🔹 3. Class: CreditCardPayment
+
+
+class CreditCardPayment implements PaymentGateway, Discountable {
+
+Implements two interfaces: PaymentGateway + Discountable.
+Must override all abstract methods from both interfaces.
+
+
+
+@Override public void pay(double amount) { ... }
+
+Implements payment logic for credit card.
+Prints a message showing payment completed.
+
+
+
+@Override public void refund(double amount) { ... }
+
+Implements refund logic for credit card.
+
+
+@Override public double applyDiscount(double amount) { ... }
+
+Implements discount logic.
+Here: 10% discount applied.
+Demonstrates multiple behaviors via interfaces.
+
+-----------------------------------------------------------------------------------------------
+
+🔹 4. Class: PayPalPayment
+
+
+class PayPalPayment implements PaymentGateway {
+
+
+Implements only PaymentGateway (no discounts).
+Must define pay() and refund().
+
+
+
+
+@Override public void pay(double amount) { ... }
+
+Implements PayPal-specific payment logic.
+
+
+
+@Override public void refund(double amount) { ... }
+
+Implements PayPal-specific refund logic.
+
+
+
+-----------------------------------------------------------------------------------------------
+
+
+
+🔹 5. Main Method
+
+
+PaymentGateway pg1 = new CreditCardPayment();
+
+Polymorphism: reference type = interface (PaymentGateway), object = concrete class.
+Can call pay() and refund() methods.
+
+
+
+
+Discountable d1 = new CreditCardPayment();
+
+Polymorphism again: reference type = Discountable, object = CreditCardPayment.
+Can call applyDiscount() method only.
+
+
+
+
+
+PaymentGateway pg2 = new PayPalPayment();
+
+Another interface reference pointing to PayPalPayment object.
+Can call pay() and refund().
+
+
+
+
+double discounted = d1.applyDiscount(1000);
+
+Calls CreditCardPayment.applyDiscount() via Discountable reference.
+Returns 900 (10% off).
+
+
+pg1.pay(discounted);
+
+Calls CreditCardPayment.pay() with discounted amount.
+
+pg2.pay(500);
+
+Calls PayPalPayment.pay() for normal amount.
+Same method name → different behavior depending on object → runtime polymorphism.

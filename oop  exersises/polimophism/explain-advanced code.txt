@@ -1,0 +1,126 @@
+🔵 1. Abstract Class: Payment
+abstract class Payment {
+
+This defines an abstract parent class.
+It is used to create a common type for all payment methods.
+
+public abstract void pay(double amount);
+
+This is an abstract method.
+
+No body → forces subclasses to implement their own version.
+
+This is what enables polymorphism.
+-------------------------------------------------------------------------------------
+🔵 2. Subclass: CardPayment
+class CardPayment extends Payment {
+
+This says CardPayment inherits the Payment class.
+
+@Override
+
+Means this method is overriding the abstract method in Payment.
+
+public void pay(double amount) {
+
+Implements the pay method for card payment.
+
+System.out.println("Paid " + amount + " using Card");
+
+Shows behavior specific to card payments.
+-------------------------------------------------------------------------------------
+🔵 3. Subclass: BankTransferPayment
+class BankTransferPayment extends Payment {
+
+Another subclass with its own behavior.
+
+@Override void pay(...)
+
+Overrides and provides bank-transfer-specific logic.
+
+System.out.println("Paid ... via Bank Transfer");
+
+Unique message for this payment method.
+-------------------------------------------------------------------------------------
+🔵 4. Subclass: CryptoPayment
+class CryptoPayment extends Payment {
+
+Another child class.
+
+public void pay(double amount) {...}
+
+Implements crypto-specific payment logic.
+
+System.out.println("Paid ... using Crypto wallet");
+
+Message unique to crypto payments.
+-------------------------------------------------------------------------------------
+🔵 5. CheckoutService class
+
+
+class CheckoutService {
+
+This class uses polymorphism to process any payment type.
+
+
+
+
+public void processPayment(Payment payment, double amount) {
+
+The method takes a Payment type, NOT a specific subclass.
+
+
+
+This is where polymorphism happens.
+
+
+
+
+payment.pay(amount);
+
+This line is the heart of polymorphism:
+
+If you pass CardPayment → calls CardPayment.pay
+If you pass BankTransferPayment → calls BankTransferPayment.pay
+If you pass CryptoPayment → calls CryptoPayment.pay
+
+Same method call → different behavior depending on object type.
+-------------------------------------------------------------------------------------
+🔵 6. Main Class
+CheckoutService service = new CheckoutService();
+Create service object.
+
+service.processPayment(new CardPayment(), 1000);
+
+  Passes a CardPayment object
+  processPayment() calls CardPayment.pay()
+
+service.processPayment(new BankTransferPayment(), 2000);
+
+  Passes a BankTransferPayment object
+  Calls BankTransferPayment’s version of pay()
+
+service.processPayment(new CryptoPayment(), 5000);
+
+  Passes a CryptoPayment object
+  Calls CryptoPayment’s version of pay()
+-------------------------------------------------------------------------------------
+⭐ Why this is Polymorphism
+
+Polymorphism = one method call → different behavior depending on which object is passed.
+
+Here:
+
+processPayment(payment, amount);
+
+is always the SAME call.
+
+But output changes because payment can be:
+
+a CardPayment object
+a BankTransferPayment object
+a CryptoPayment object
+
+So Java dynamically decides which version of pay() to run.
+
+That is runtime polymorphism.

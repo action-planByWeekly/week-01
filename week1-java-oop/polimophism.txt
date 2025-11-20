@@ -1,0 +1,201 @@
+Polymorphism — Deep Explanation (Very Beginner-Friendly)
+
+Polymorphism is another core concept in OOP.
+It sounds complicated, but I’ll teach it in a simple and deep way.
+
+A. What is Polymorphism?
+
+Polymorphism = many forms
+
+In Java, a single method or object behaves differently depending on the context.
+
+Two types:
+
+Compile-time Polymorphism → Method Overloading
+
+Runtime Polymorphism → Method Overriding
+
+Both are extremely important for real projects.
+
+B. Why Do We Need Polymorphism?
+✔ Clean & flexible code
+✔ Reduces duplication
+✔ Makes code extendable
+✔ Supports OOP principles
+✔ Enables interfaces & abstraction
+
+Example:
+
+Animal a = new Dog();
+Animal a = new Cat();
+
+Both behave differently even though type is the same (Animal).
+
+-----------------------------------------------------------
+1) Compile-time Polymorphism (Method Overloading)
+-----------------------------------------------------------
+Definition:
+
+When multiple methods have the same name but different parameters.
+
+Java decides which method to call during compile time.
+
+Method Overloading Example
+class Calculator {
+
+    int add(int a, int b) {
+        return a + b;
+    }
+
+    int add(int a, int b, int c) {
+        return a + b + c;
+    }
+
+    double add(double a, double b) {
+        return a + b;
+    }
+}
+
+
+Same method name → add
+Different:
+
+Number of parameters
+
+Data types
+
+Order of parameters
+
+Why Overload Methods?
+
+Improve readability
+
+Avoid unnecessary method names
+
+Work with multiple input types
+
+-----------------------------------------------------------
+2) Runtime Polymorphism (Method Overriding)
+-----------------------------------------------------------
+Definition:
+
+Child class gives its own version of a method already in parent class.
+
+Happens during runtime.
+
+Overriding Example
+Parent class:
+class Animal {
+    void sound() {
+        System.out.println("Animal makes sound");
+    }
+}
+
+Child class:
+class Dog extends Animal {
+    @Override
+    void sound() {
+        System.out.println("Dog barks");
+    }
+}
+
+Usage:
+Animal a = new Dog();
+a.sound();   // Dog barks
+
+
+Even though a is of type Animal → the method of Dog runs.
+
+This is runtime polymorphism.
+
+Why Runtime Polymorphism Is Powerful
+
+Because you can write code like:
+
+void makeAnimalSound(Animal a) {
+    a.sound();
+}
+
+
+Then call:
+
+makeAnimalSound(new Dog());  // Dog barks
+makeAnimalSound(new Cat());  // Cat meows
+makeAnimalSound(new Cow());  // Cow moos
+
+
+👉 Same method call → different behavior
+👉 No need to write separate code for each animal
+
+This is a central part of flexible system design.
+
+-----------------------------------------------------------
+Important Rules of Overriding
+-----------------------------------------------------------
+✔ Same method name
+✔ Same parameters
+✔ Same return type
+✔ Cannot reduce visibility
+
+(public → must remain public)
+
+✔ Must be in parent-child class relationship
+
+(not just same class)
+
+super Keyword in Overriding
+
+Child class can call parent version:
+
+class Dog extends Animal {
+    @Override
+    void sound() {
+        super.sound();  // call parent's sound()
+        System.out.println("Dog barks");
+    }
+}
+
+-----------------------------------------------------------
+Dynamic Method Dispatch
+-----------------------------------------------------------
+
+This is the mechanism behind runtime polymorphism.
+
+Example:
+
+Animal a;
+
+a = new Dog();
+a.sound();   // Dog sound
+
+a = new Cat();
+a.sound();   // Cat sound
+
+
+Java looks at the object type, not the variable type.
+
+-----------------------------------------------------------
+Mini Real-Life Analogy
+-----------------------------------------------------------
+
+Think of a single remote controller (method name is same) controlling:
+
+TV
+DVD player
+Projector
+
+Same button → different behavior depending on the connected device.
+
+That's polymorphism.
+
+-----------------------------------------------------------
+When to Use Polymorphism?
+-----------------------------------------------------------
+
+When you have a parent-child relationship
+
+When behavior should vary by object type
+
+When writing generic, reusable code
+
+When designing interfaces and abstract classes
