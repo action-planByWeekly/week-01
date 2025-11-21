@@ -1,0 +1,180 @@
+1️⃣ What is a 1D Array?
+
+A 1D array is a collection of elements of the same type stored in contiguous memory locations.
+
+Elements are accessed using an index, starting from 0.
+
+Example declaration:
+
+int[] numbers = new int[5]; // array of 5 integers, all initialized to 0
+
+
+Or:
+
+int[] numbers = {1, 2, 3, 4, 5}; // array with initial values
+-----------------------------------------------------------------------------------------
+2️⃣ Declaration and Initialization
+
+Declaration:
+
+int[] arr;     // preferred style
+int arr2[];    // also allowed but less common
+
+
+Initialization:
+
+arr = new int[5]; // allocates memory for 5 integers
+
+
+Declaration + Initialization together:
+
+int[] arr = new int[5];
+int[] arr2 = {1, 2, 3, 4, 5};
+
+
+✅ Must know:
+
+Default values:
+
+int → 0
+
+double → 0.0
+
+boolean → false
+
+char → '\u0000'
+
+Object → null
+-----------------------------------------------------------------------------------------
+3️⃣ Accessing Elements
+
+Use index to get or set values:
+
+int[] arr = {10, 20, 30, 40, 50};
+System.out.println(arr[2]); // 30
+arr[2] = 100;              // changes 3rd element to 100
+
+
+OutOfBounds Exception: Accessing arr[5] in above array will throw ArrayIndexOutOfBoundsException.
+-----------------------------------------------------------------------------------------
+4️⃣ Array Length
+
+.length gives number of elements:
+
+int size = arr.length;
+System.out.println("Size: " + size); // 5
+-----------------------------------------------------------------------------------------
+5️⃣ Iterating Through Arrays
+
+For loop:
+
+for(int i = 0; i < arr.length; i++) {
+    System.out.println(arr[i]);
+}
+
+
+Enhanced for loop:
+
+for(int num : arr) {
+    System.out.println(num);
+}
+
+
+✅ Must know: Use enhanced for loop when you don’t need the index.
+-----------------------------------------------------------------------------------------
+6️⃣ Common Operations
+a) Sum of all elements
+int sum = 0;
+for(int num : arr) sum += num;
+System.out.println("Sum: " + sum);
+
+b) Find maximum & minimum
+int max = arr[0], min = arr[0];
+for(int num : arr){
+    if(num > max) max = num;
+    if(num < min) min = num;
+}
+System.out.println("Max: " + max + ", Min: " + min);
+
+c) Searching
+
+Linear search (basic):
+
+int target = 30;
+boolean found = false;
+for(int num : arr){
+    if(num == target) {
+        found = true;
+        break;
+    }
+}
+System.out.println(found ? "Found" : "Not Found");
+-----------------------------------------------------------------------------------------
+7️⃣ Copying Arrays
+
+Using loop:
+
+int[] copy = new int[arr.length];
+for(int i = 0; i < arr.length; i++) copy[i] = arr[i];
+
+
+Using Arrays.copyOf():
+
+import java.util.Arrays;
+int[] copy = Arrays.copyOf(arr, arr.length);
+-----------------------------------------------------------------------------------------
+8️⃣ Sorting Arrays
+
+import java.util.Arrays;
+Arrays.sort(arr); // ascending
+System.out.println(Arrays.toString(arr));
+-----------------------------------------------------------------------------------------
+9️⃣ Reversing Arrays
+
+for(int i = 0; i < arr.length/2; i++){
+    int temp = arr[i];
+    arr[i] = arr[arr.length-1-i];
+    arr[arr.length-1-i] = temp;
+}
+-----------------------------------------------------------------------------------------
+🔟 Multi-use Tricks
+a) Count occurrences
+int count = 0;
+for(int num : arr) {
+    if(num == 5) count++;
+}
+
+b) Check if array is sorted
+boolean sorted = true;
+for(int i=0; i < arr.length-1; i++){
+    if(arr[i] > arr[i+1]){
+        sorted = false;
+        break;
+    }
+}
+
+c) Reverse print
+for(int i = arr.length-1; i>=0; i--){
+    System.out.println(arr[i]);
+}
+-----------------------------------------------------------------------------------------
+1️⃣1️⃣ Scanner & Arrays
+
+Read array from user input:
+
+import java.util.Scanner;
+Scanner sc = new Scanner(System.in);
+int n = sc.nextInt();
+int[] arr = new int[n];
+for(int i = 0; i < n; i++){
+    arr[i] = sc.nextInt();
+}
+
+-----------------------------------------------------------------------------------------
+
+1️⃣2️⃣ Key Points for 1D Arrays
+
+Always remember index starts at 0.
+Arrays have fixed size. If you need dynamic size → use ArrayList.
+Know default values for all data types.
+Understand common algorithms: sum, max/min, search, reverse, sort.

@@ -1,0 +1,157 @@
+1️⃣ What is a 2D Array?
+
+A 2D array is an array of arrays. Think of it like a table or matrix (rows × columns).
+Syntax:
+
+int[][] matrix = new int[3][4]; // 3 rows, 4 columns
+
+
+You can also initialize directly:
+
+int[][] matrix = {
+    {1, 2, 3, 4},
+    {5, 6, 7, 8},
+    {9, 10, 11, 12}
+};
+-----------------------------------------------------------------------------------------------
+2️⃣ Accessing Elements
+
+Use row index and column index:
+
+int x = matrix[1][2]; // 2nd row, 3rd column → 7
+matrix[0][0] = 100;   // change 1st element
+-----------------------------------------------------------------------------------------------
+3️⃣ Array Lengths
+
+matrix.length → number of rows
+
+matrix[0].length → number of columns in first row
+
+System.out.println("Rows: " + matrix.length);       // 3
+System.out.println("Columns: " + matrix[0].length); // 4
+
+
+✅ Must know: rows can have different lengths (ragged array).
+-----------------------------------------------------------------------------------------------
+4️⃣ Iterating Through a 2D Array
+
+a) Using nested for loop
+for(int i=0; i < matrix.length; i++){         // rows
+    for(int j=0; j < matrix[i].length; j++){  // columns
+        System.out.print(matrix[i][j] + " ");
+    }
+    System.out.println();
+}
+
+b) Using enhanced for loop
+for(int[] row : matrix){
+    for(int val : row){
+        System.out.print(val + " ");
+    }
+    System.out.println();
+}
+
+-----------------------------------------------------------------------------------------------
+5️⃣ Common Operations
+
+a) Sum of all elements
+int sum = 0;
+for(int[] row : matrix){
+    for(int val : row){
+        sum += val;
+    }
+}
+System.out.println("Sum: " + sum);
+
+b) Maximum & Minimum
+int max = matrix[0][0], min = matrix[0][0];
+for(int[] row : matrix){
+    for(int val : row){
+        if(val > max) max = val;
+        if(val < min) min = val;
+    }
+}
+System.out.println("Max: " + max + ", Min: " + min);
+
+c) Search for a value
+int target = 7;
+boolean found = false;
+for(int i = 0; i < matrix.length; i++){
+    for(int j = 0; j < matrix[i].length; j++){
+        if(matrix[i][j] == target){
+            found = true;
+            System.out.println("Found at: (" + i + "," + j + ")");
+            break;
+        }
+    }
+}
+if(!found) System.out.println("Not Found");
+-----------------------------------------------------------------------------------------------
+6️⃣ Jagged Arrays (Rows of Different Lengths)
+
+int[][] jagged = new int[3][];
+jagged[0] = new int[2]; // 2 columns
+jagged[1] = new int[3]; // 3 columns
+jagged[2] = new int[1]; // 1 column
+
+
+Access elements like normal:
+
+jagged[1][2] = 50;
+-----------------------------------------------------------------------------------------------
+7️⃣ Scanner & 2D Arrays
+
+
+import java.util.Scanner;
+Scanner sc = new Scanner(System.in);
+int rows = sc.nextInt();
+int cols = sc.nextInt();
+int[][] arr = new int[rows][cols];
+
+for(int i = 0; i < rows; i++){
+    for(int j = 0; j < cols; j++){
+        arr[i][j] = sc.nextInt();
+    }
+}
+-----------------------------------------------------------------------------------------------
+8️⃣ Copying a 2D Array
+
+
+int[][] copy = new int[matrix.length][matrix[0].length];
+for(int i = 0; i < matrix.length; i++){
+    for(int j = 0; j < matrix[i].length; j++){
+        copy[i][j] = matrix[i][j];
+    }
+}
+-----------------------------------------------------------------------------------------------
+9️⃣ Reversing Rows or Columns
+
+
+Reverse each row:
+for(int i = 0; i < matrix.length; i++){
+    int start = 0, end = matrix[i].length - 1;
+    while(start < end){
+        int temp = matrix[i][start];
+        matrix[i][start] = matrix[i][end];
+        matrix[i][end] = temp;
+        start++;
+        end--;
+    }
+}
+
+Reverse rows order:
+for(int i = 0, j = matrix.length - 1; i < j; i++, j--){
+    int[] temp = matrix[i];
+    matrix[i] = matrix[j];
+    matrix[j] = temp;
+}
+-----------------------------------------------------------------------------------------------
+🔟 Key Points for 2D Arrays
+
+Indexing starts at 0 for rows and columns.
+Arrays are fixed size; use jagged arrays for varying lengths.
+Nested loops are essential for operations like sum, max/min, search.
+Use Arrays.deepToString(array) to print 2D arrays easily:
+
+import java.util.Arrays;
+System.out.println(Arrays.deepToString(matrix));
