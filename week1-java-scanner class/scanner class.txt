@@ -1,0 +1,98 @@
+1️⃣ What is Scanner class?
+
+The Scanner class is part of java.util package.
+It is used to read input from different sources:
+
+  Keyboard (console)
+  Files
+  Strings
+
+Most commonly, it’s used to take user input from the keyboard.
+
+Syntax to import Scanner:
+
+import java.util.Scanner;
+-----------------------------------------------------------------------------------------------------
+2️⃣ How to create a Scanner object?
+
+To read from the keyboard:
+
+Scanner sc = new Scanner(System.in);
+
+
+Here:
+
+sc is the Scanner object.
+System.in tells Scanner to read input from the console.
+
+-----------------------------------------------------------------------------------------------------
+3️⃣ Common methods of Scanner
+
+| Method         | Purpose                     | Example                           |
+| -------------- | --------------------------- | --------------------------------- |
+| `nextInt()`    | Reads an integer            | `int age = sc.nextInt();`         |
+| `nextDouble()` | Reads a double              | `double price = sc.nextDouble();` |
+| `nextFloat()`  | Reads a float               | `float f = sc.nextFloat();`       |
+| `nextLong()`   | Reads a long                | `long l = sc.nextLong();`         |
+| `next()`       | Reads a **single word**     | `String name = sc.next();`        |
+| `nextLine()`   | Reads a **full line**       | `String line = sc.nextLine();`    |
+| `hasNextInt()` | Checks if next input is int | `if(sc.hasNextInt()) ...`         |
+| `close()`      | Closes the Scanner          | `sc.close();`                     |
+
+
+-----------------------------------------------------------------------------------------------------
+
+4️⃣ Example: Reading different types of input
+import java.util.Scanner;
+
+public class ScannerExample {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in); // create Scanner object
+
+        System.out.print("Enter your name: ");
+        String name = sc.nextLine(); // read a full line
+
+        System.out.print("Enter your age: ");
+        int age = sc.nextInt(); // read an integer
+
+        System.out.print("Enter your salary: ");
+        double salary = sc.nextDouble(); // read a double
+
+        System.out.println("Name: " + name);
+        System.out.println("Age: " + age);
+        System.out.println("Salary: " + salary);
+
+        sc.close(); // close the scanner
+    }
+}
+
+
+Explanation:
+
+sc.nextLine() → reads the entire line, including spaces.
+sc.nextInt() → reads integer.
+sc.nextDouble() → reads double/decimal number.
+Always use sc.close() at the end to release resources.
+
+
+-----------------------------------------------------------------------------------------------------
+5️⃣ Important Notes
+
+Mixing nextLine() and nextInt():
+
+int age = sc.nextInt();
+String name = sc.nextLine(); // this may skip input
+
+
+Why? Because nextInt() does not consume the newline, so nextLine() reads the leftover newline.
+Fix: Add an extra sc.nextLine() after reading numbers:
+
+int age = sc.nextInt();
+sc.nextLine(); // consume the leftover newline
+String name = sc.nextLine();
+
+
+Scanner is not thread-safe – not used in multi-threaded apps.
+Can read from files or strings too:
+
+Scanner sc = new Scanner("Hello World");
